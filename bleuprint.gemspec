@@ -17,7 +17,8 @@ Gem::Specification.new do |spec|
     "source_code_uri" => "https://github.com/bleu-fi/bleuprint-ruby",
     "github_repo" => "ssh://github.com/bleu-fi/bleuprint-ruby",
     "homepage_uri" => spec.homepage,
-    "rubygems_mfa_required" => "true"
+    "rubygems_mfa_required" => "true",
+    "allowed_push_host" => "https://rubygems.pkg.github.com/bleu-fi"
   }
 
   # Specify which files should be added to the gem when it is released.
