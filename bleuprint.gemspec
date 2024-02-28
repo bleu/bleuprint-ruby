@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
     "bug_tracker_uri" => "https://github.com/bleu-fi/bleuprint-ruby/issues",
     "changelog_uri" => "https://github.com/bleu-fi/bleuprint-ruby/releases",
     "source_code_uri" => "https://github.com/bleu-fi/bleuprint-ruby",
+    "github_repo" => "ssh://github.com/bleu-fi/bleuprint-ruby",
     "homepage_uri" => spec.homepage,
     "rubygems_mfa_required" => "true"
   }
