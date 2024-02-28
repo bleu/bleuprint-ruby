@@ -1,5 +1,9 @@
+require "active_support/dependencies/autoload"
 module Bleuprint
-  autoload :CLI, "bleuprint/cli"
-  autoload :VERSION, "bleuprint/version"
-  autoload :ThorExt, "bleuprint/thor_ext"
+  extend ::ActiveSupport::Autoload
+
+  autoload :CLI
+  autoload :VERSION
+  autoload :ThorExt
+  autoload :Field
 end
