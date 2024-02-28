@@ -17,6 +17,8 @@ TODO: Description of this gem goes here.
 
 ## Quick start
 
+[Ensure you can authenticate to Github Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry#authenticating-to-github-packages)
+
 ```
 gem install bleuprint
 ```
