@@ -1,20 +1,20 @@
-require_relative "lib/example/version"
+require_relative "lib/bleuprint/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "example"
-  spec.version = Example::VERSION
-  spec.authors = ["Example Owner"]
-  spec.email = ["owner@example.com"]
+  spec.name = "bleuprint"
+  spec.version = Bleuprint::VERSION
+  spec.authors = ["José Ribeiro"]
+  spec.email = ["jose@bleu.studio"]
 
-  spec.summary = ""
-  spec.homepage = "https://github.com/mattbrictson/gem"
+  spec.summary = "tools for developing RoR apps at bleu"
+  spec.homepage = "https://github.com/bleu-fi/bleuprint-ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0"
 
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/mattbrictson/gem/issues",
-    "changelog_uri" => "https://github.com/mattbrictson/gem/releases",
-    "source_code_uri" => "https://github.com/mattbrictson/gem",
+    "bug_tracker_uri" => "https://github.com/bleu-fi/bleuprint-ruby/issues",
+    "changelog_uri" => "https://github.com/bleu-fi/bleuprint-ruby/releases",
+    "source_code_uri" => "https://github.com/bleu-fi/bleuprint-ruby",
     "homepage_uri" => spec.homepage,
     "rubygems_mfa_required" => "true"
   }

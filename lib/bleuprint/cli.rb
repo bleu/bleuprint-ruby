@@ -1,14 +1,14 @@
 require "thor"
 
-module Example
+module Bleuprint
   class CLI < Thor
     extend ThorExt::Start
 
     map %w[-v --version] => "version"
 
-    desc "version", "Display example version", hide: true
+    desc "version", "Display bleuprint version", hide: true
     def version
-      say "example/#{VERSION} #{RUBY_DESCRIPTION}"
+      say "bleuprint/#{VERSION} #{RUBY_DESCRIPTION}"
     end
   end
 end

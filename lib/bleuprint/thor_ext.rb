@@ -1,4 +1,4 @@
-module Example
+module Bleuprint
   module ThorExt
     # Configures Thor to behave more like a typical CLI, with better help and error handling.
     #
