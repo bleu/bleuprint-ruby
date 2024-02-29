@@ -5,5 +5,9 @@ module Bleuprint
   autoload :CLI
   autoload :VERSION
   autoload :ThorExt
+
   autoload :Field
+  autoload :Forms
+  autoload :Services
+  autoload :Dashboards
 end

@@ -1,3 +1,4 @@
+require "bleuprint/field/base"
 module Bleuprint
   module Field
     class Text < Base

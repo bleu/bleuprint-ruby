@@ -11,3 +11,7 @@ gem "rubocop-performance", "1.20.2"
 gem "rubocop-rake", "0.6.0"
 
 gem "activesupport", "~> 7.1"
+
+gem "after_commit_everywhere", "~> 1.4"
+
+gem "activemodel", "~> 7.1"

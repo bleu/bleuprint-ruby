@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary = "tools for developing RoR apps at bleu"
   spec.homepage = "https://github.com/bleu-fi/bleuprint-ruby"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.0"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bleu-fi/bleuprint-ruby/issues",
@@ -29,5 +29,6 @@ Gem::Specification.new do |spec|
 
   # Runtime dependencies
   spec.add_dependency "activesupport", "~> 7.1"
+  spec.add_dependency "after_commit_everywhere", "~> 1.4"
   spec.add_dependency "thor", "~> 1.2"
 end

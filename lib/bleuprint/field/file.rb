@@ -1,3 +1,4 @@
+require "bleuprint/field/base"
 module Bleuprint
   module Field
     class File < Base
@@ -11,7 +12,7 @@ module Bleuprint
         url = resource.respond_to?(:"#{attribute}_url") ? resource.send(:"#{attribute}_url") : resource.send(attribute)
 
         {
-          url: url,
+          url:,
           filename: resource.send(attribute).filename.to_s
         }
       end

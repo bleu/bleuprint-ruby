@@ -1,3 +1,4 @@
+require "bleuprint/field/base"
 module Bleuprint
   module Field
     class Select < Base
@@ -34,7 +35,7 @@ module Bleuprint
 
       def active_record_enum_values
         dashboard.resource_class.defined_enums[attribute.to_s].map(&:first).map do |value|
-          { value: value, label: value.humanize }
+          { value:, label: value.humanize }
         end
       end
 
