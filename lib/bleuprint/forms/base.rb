@@ -34,7 +34,7 @@ module Bleuprint
       end
 
       def fields
-        validations = ::ValidatorsToJson.new(resource.class).translate
+        validations = Forms::ValidatorsToJson.new(resource.class).translate
         attribute_types = get_attribute_types
 
         attribute_types.map do |name, type_class|

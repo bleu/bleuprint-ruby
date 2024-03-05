@@ -5,5 +5,6 @@ module Bleuprint
     extend ::ActiveSupport::Autoload
 
     autoload :Base
+    autoload :ValidatorsToJson
   end
 end
