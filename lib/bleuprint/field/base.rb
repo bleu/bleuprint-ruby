@@ -1,7 +1,13 @@
+require_relative "deferred"
+
 module Bleuprint
   module Field
     class Base
       attr_reader :attribute, :dashboard, :resource, :options
+
+      def self.with_options(options={})
+        Deferred.new(self, options)
+      end
 
       def self.type
         name.demodulize.underscore.to_sym

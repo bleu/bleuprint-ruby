@@ -64,6 +64,10 @@ module Bleuprint
         end
       end
 
+      def show_page_attributes(resource)
+        self.class.show_page_attributes(resource)
+      end
+
       def self.determine_column_type(column)
         case column.type
         when :string, :text

@@ -48,7 +48,7 @@ module Bleuprint
       end
 
       def build_field(name, type_class)
-        type_class.new(name, dashboard)
+        type_class.new(name, dashboard, resource)
       end
 
       def field_attributes(field, _validations)
@@ -56,6 +56,7 @@ module Bleuprint
           name: field.name,
           type: field.input_type,
           label: field.label,
+          **field.options,
           **options_for_field(field),
           # **validation_for_field(field, validations),
           **downloadable_options_for_field(field)
