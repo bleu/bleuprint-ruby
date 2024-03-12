@@ -3,6 +3,7 @@ require:
   - rubocop-packaging
   - rubocop-performance
   - rubocop-rake
+  - rubocop-sorbet
 
 AllCops:
   DisplayCopNames: true

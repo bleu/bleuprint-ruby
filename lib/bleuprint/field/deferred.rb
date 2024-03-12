@@ -1,3 +1,5 @@
+# typed: false
+
 require "active_support/core_ext/module/delegation"
 
 module Bleuprint

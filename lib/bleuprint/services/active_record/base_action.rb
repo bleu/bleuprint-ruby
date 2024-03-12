@@ -1,3 +1,6 @@
+# typed: false
+
+require "active_record"
 module Bleuprint
   module Services
     module ActiveRecord
@@ -12,7 +15,7 @@ module Bleuprint
           end
 
           { success: true, resource: }
-        rescue ActiveRecord::RecordNotDestroyed => e
+        rescue ::ActiveRecord::RecordNotDestroyed => e
           { success: false, errors: HumanizeModelErrors.new(e.record).call! }
         end
       end

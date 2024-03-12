@@ -1,3 +1,5 @@
+# typed: false
+
 require_relative "deferred"
 
 module Bleuprint

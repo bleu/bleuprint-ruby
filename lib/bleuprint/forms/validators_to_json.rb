@@ -1,3 +1,6 @@
+# typed: true
+
+require "active_record"
 module Bleuprint
   module Forms
     class ValidatorsToJson

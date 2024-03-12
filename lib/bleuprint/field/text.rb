@@ -1,3 +1,5 @@
+# typed: true
+
 require "bleuprint/field/base"
 module Bleuprint
   module Field

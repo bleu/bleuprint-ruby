@@ -1,3 +1,5 @@
+# typed: true
+
 module Bleuprint
   module Services
     module ActiveRecord

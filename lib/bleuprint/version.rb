@@ -1,3 +1,7 @@
+# typed: true
+
 module Bleuprint
-  VERSION = "0.1.4".freeze
+  def self.version
+    Gem.loaded_specs["bleuprint"].version.to_s
+  end
 end

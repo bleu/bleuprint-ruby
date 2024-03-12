@@ -1,3 +1,5 @@
+# typed: strict
+
 require "active_support/dependencies/autoload"
 
 module Bleuprint
