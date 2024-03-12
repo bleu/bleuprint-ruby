@@ -1,3 +1,5 @@
+# typed: true
+
 require "test_helper"
 
 class FormsTest < Minitest::Test

@@ -8,6 +8,7 @@ module Bleuprint
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength
       ATTRIBUTE_TYPES = {}.freeze
       COLLECTION_ATTRIBUTES = [].freeze
+      EXCLUDED_FILTER_FIELDS = %i[title code].freeze
 
       def self.call!(*)
         { columns: columns(*), filters: filters(*) }
@@ -21,7 +22,7 @@ module Bleuprint
         return unless defined?(self::COLLECTION_FILTERS)
 
         # TODO: check why :title gives an error
-        self::COLLECTION_FILTERS.excluding(:title, :code).map do |field_name, _filter_proc|
+        self::COLLECTION_FILTERS.excluding(*EXCLUDED_FILTER_FIELDS).map do |field_name, _filter_proc|
           field = self::ATTRIBUTE_TYPES[field_name].new(field_name, self)
           next unless field
           next unless field.filterable?
@@ -57,7 +58,7 @@ module Bleuprint
         columns << { id: "actions", type: "actions", actions: actions_json(*) }
       end
 
-      def self.show_page_attributess(resource)
+      def self.show_page_attributes(resource)
         self::ATTRIBUTE_TYPES.slice(*self::SHOW_PAGE_ATTRIBUTES).filter_map do |k, v|
           field = v.new(k, self, resource)
           { accessorKey: field.name, title: field.label, type: field.type, value: field.value }
@@ -68,19 +69,16 @@ module Bleuprint
         self.class.show_page_attributes(resource)
       end
 
+      COLUMN_TYPE_MAPPING = {
+        string: Bleuprint::Field::Text,
+        text: Bleuprint::Field::Text,
+        date: Bleuprint::Field::Date,
+        datetime: Bleuprint::Field::Datetime,
+        boolean: Bleuprint::Field::Boolean
+      }.freeze
+
       def self.determine_column_type(column)
-        case column.type
-        when :string, :text
-          Bleuprint::Field::Text
-        when :date
-          Bleuprint::Field::Date
-        when :datetime
-          Bleuprint::Field::Datetime
-        when :boolean
-          Bleuprint::Field::Boolean
-        else # rubocop:disable Lint/DuplicateBranch
-          Bleuprint::Field::Text
-        end
+        COLUMN_TYPE_MAPPING[column.type] || Bleuprint::Field::Text
       end
 
       def self.add_collection_filter(name, &block)
