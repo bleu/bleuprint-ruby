@@ -1,3 +1,5 @@
+# typed: false
+
 module Bleuprint
   module Services
     class Base

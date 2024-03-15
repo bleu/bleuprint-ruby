@@ -46,7 +46,7 @@ module Bleuprint
 
       def self.resource_class
         class_name = name.split("::").last
-        class_name.singularize.constantize
+        class_name.singularize.constantize # rubocop:disable Sorbet/ConstantsFromStrings
       end
 
       def self.base_attribute_types
@@ -99,6 +99,7 @@ module Bleuprint
         end
 
         return scope unless defined?(self::SEARCH_FILTER)
+
         scope = self::SEARCH_FILTER[:filter].call(scope, params) if params[self::SEARCH_FILTER[:name]].present?
         scope
       end
