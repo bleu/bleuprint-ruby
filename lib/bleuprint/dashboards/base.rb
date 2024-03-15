@@ -8,10 +8,9 @@ module Bleuprint
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength
       ATTRIBUTE_TYPES = {}.freeze
       COLLECTION_ATTRIBUTES = [].freeze
-      EXCLUDED_FILTER_FIELDS = %i[title code].freeze
 
       def self.call!(*)
-        { columns: columns(*), filters: filters(*) }
+        { columns: columns(*), filters: filters(*), search: search(*) }
       end
 
       def self.actions_json
@@ -21,8 +20,7 @@ module Bleuprint
       def self.filters(*)
         return unless defined?(self::COLLECTION_FILTERS)
 
-        # TODO: check why :title gives an error
-        self::COLLECTION_FILTERS.excluding(*EXCLUDED_FILTER_FIELDS).map do |field_name, _filter_proc|
+        self::COLLECTION_FILTERS.map do |field_name, _filter_proc|
           field = self::ATTRIBUTE_TYPES[field_name].new(field_name, self)
           next unless field
           next unless field.filterable?
@@ -36,6 +34,14 @@ module Bleuprint
             value: field.name
           }.merge(filter_options)
         end
+      end
+
+      def self.search(*)
+        return unless defined?(self::SEARCH_FILTER)
+
+        {
+          key: self::SEARCH_FILTER[:name]
+        }
       end
 
       def self.resource_class
@@ -92,6 +98,8 @@ module Bleuprint
           scope = filter_proc.call(scope, params) if params[filter_name].present?
         end
 
+        return scope unless defined?(self::SEARCH_FILTER)
+        scope = self::SEARCH_FILTER[:filter].call(scope, params) if params[self::SEARCH_FILTER[:name]].present?
         scope
       end
 
