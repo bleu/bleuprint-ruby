@@ -12,7 +12,7 @@ class FormsBaseTest < Minitest::Test
     end
 
     def self.model_name
-      OpenStruct.new(human: "Test Resource")
+      OpenStruct.new(human: "Test Resource") # rubocop:disable Style/OpenStructUse
     end
 
     def self.human_attribute_name(attribute)
