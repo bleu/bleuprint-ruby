@@ -67,7 +67,7 @@ module Bleuprint
       def self.show_page_attributes(resource)
         self::ATTRIBUTE_TYPES.slice(*self::SHOW_PAGE_ATTRIBUTES).filter_map do |k, v|
           field = v.new(k, self, resource)
-          { accessorKey: field.name, title: field.label, type: field.type, value: field.value }
+          {accessorKey: field.name, title: field.label, type: field.type, value: field.value, field_options: {**field.options}}
         end
       end
 
