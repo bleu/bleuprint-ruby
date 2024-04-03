@@ -17,7 +17,7 @@ module Bleuprint
 
         def call! # rubocop:disable Metrics/AbcSize
           super do
-            if resource.respond_to?(:user_id) && current_user.present?
+            if resource.respond_to?(:user_id) && current_user.present? && !resource.persisted?
               resource.assign_attributes(user_id: current_user.id)
             end
 

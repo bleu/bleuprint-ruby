@@ -8,5 +8,6 @@ module Bleuprint
 
     autoload :Base
     autoload :ValidatorsToJson
+    autoload :Wizard
   end
 end
