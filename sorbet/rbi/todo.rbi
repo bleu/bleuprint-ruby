@@ -4,4 +4,4 @@
 
 # typed: false
 
-module ::Rails; end
+module Bleuprint::Services::Base::Rails; end
