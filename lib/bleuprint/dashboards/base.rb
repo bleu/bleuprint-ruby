@@ -58,7 +58,13 @@ module Bleuprint
       def self.columns(*)
         columns = self::ATTRIBUTE_TYPES.slice(*self::COLLECTION_ATTRIBUTES).filter_map do |k, v|
           field = v.new(k, self, resource_class.new)
-          { accessorKey: field.name, title: field.label, type: field.type, hide: field.hidden?, field_options: {**field.options} }
+          {
+            accessorKey: field.name,
+            title: field.label,
+            type: field.type,
+            hide: field.hidden?,
+            field_options: { **field.options }
+          }
         end
 
         columns << { id: "actions", type: "actions", actions: actions_json(*) }
