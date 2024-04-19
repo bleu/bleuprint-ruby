@@ -51,11 +51,22 @@ module Bleuprint
       end
 
       def label
-        dashboard.resource_class.human_attribute_name(attribute)
+        if options[:label].is_a?(String)
+          options[:label]
+        elsif options[:label].is_a?(Proc)
+          options[:label].call(self, resource)
+        else
+          dashboard.resource_class.human_attribute_name(attribute)
+        end
       end
 
       def hidden?
-        false
+        # check if options[:hidden] is a boolean
+        if options[:hidden].is_a?(TrueClass) || options[:hidden].is_a?(FalseClass)
+          options[:hidden]
+        elsif options[:hidden].is_a?(Proc)
+          options[:hidden].call(self, resource)
+        end
       end
     end
   end
