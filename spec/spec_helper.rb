@@ -7,7 +7,7 @@ require "rspec/expectations"
 require "pry"
 require "rspec/sorbet"
 
-$rspec_core_without_stderr_monkey_patch = RSpec::Core::Configuration.new
+$rspec_core_without_stderr_monkey_patch = RSpec::Core::Configuration.new # rubocop:disable Style/GlobalVars
 
 class RSpec::Core::Configuration
   def self.new(*args, &)

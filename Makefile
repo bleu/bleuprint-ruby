@@ -12,3 +12,10 @@ sorbet/update:
 	bin/tapioca annotations
 	bin/tapioca dsl
 	bin/tapioca todo
+
+
+test:
+	bin/rspec
+
+cops:
+	bin/rubocop --autocorrect-all
