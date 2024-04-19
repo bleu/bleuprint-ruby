@@ -1,5 +1,6 @@
 # typed: true
 
+require "after_commit_everywhere"
 module Bleuprint
   module Services
     module ActiveRecord

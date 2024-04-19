@@ -1,6 +1,7 @@
 # typed: false
 
 require_relative "deferred"
+require "active_support/inflector"
 
 module Bleuprint
   module Field
