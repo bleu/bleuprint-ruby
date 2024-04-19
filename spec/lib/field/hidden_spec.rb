@@ -1,20 +1,30 @@
-# typed: true
+# typed: false
 
-require "bleuprint/field/base"
-module Bleuprint
-  module Field
-    class Hidden < Base
-      def hidden?
-        true
-      end
+RSpec.describe Bleuprint::Field::Hidden do
+  subject { described_class.new(:hidden_field, dashboard) }
 
-      def type
-        ""
-      end
+  let(:dashboard) { double("Dashboard") }
 
-      def filterable_options
-        [{ label: "Sim", value: "true" }, { label: "Não", value: "false" }]
-      end
+  describe "#hidden?" do
+    it "returns true" do
+      expect(subject.hidden?).to be true
+    end
+  end
+
+  describe "#type" do
+    it "returns an empty string" do
+      expect(subject.type).to eq("")
+    end
+  end
+
+  describe "#filterable_options" do
+    it "returns the correct filterable options" do
+      expect(subject.filterable_options).to eq(
+        [
+          { label: "Sim", value: "true" },
+          { label: "Não", value: "false" }
+        ]
+      )
     end
   end
 end
