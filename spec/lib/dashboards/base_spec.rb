@@ -60,7 +60,7 @@ RSpec.describe Bleuprint::Dashboards::Base do
   describe "Functionality of TestDashboard" do
     let(:resource) { double(name: "John Doe", age: 30) }
 
-    describe ".call!" do
+    describe "self.call!" do
       it "returns columns, filters, and search configuration" do
         result = TestDashboard.call!
         expect(result).to include(:columns, :filters, :search)
@@ -171,6 +171,43 @@ RSpec.describe Bleuprint::Dashboards::Base do
           total: 1,
           per_page: 1,
           page: 0
+        )
+      end
+    end
+
+    describe ".call!" do
+      it "integrates filters, pagination, and sorting to produce a structured response" do # rubocop:disable RSpec/ExampleLength
+        pagination = { per_page: 10, page: 1 }
+        sorting = { sort_column: "name", sort_direction: "asc" }
+        filters = { age: 25 }
+        context = Bleuprint::Dashboards::Context.new(pagination:, sorting:, filters:)
+        dashboard = TestDashboard.new(pagination, sorting, filters)
+
+        result = dashboard.call!
+        expect(result).to include(
+          columns: [
+            {
+              accessorKey:   "name",
+              field_options: {
+                context:
+              },
+              hide:          false,
+              title:         "Name",
+              type:          :text
+            },
+            {
+              accessorKey:   "age",
+              field_options: {
+                context:
+              },
+              hide:          false,
+              title:         "Age",
+              type:          :number
+            },
+            { actions: [{ label: "Edit", url: "/edit" }], id: "actions", type: "actions" }
+          ],
+          filters: [{ title: "Age", value: "age" }],
+          search: { key: :name }
         )
       end
     end
