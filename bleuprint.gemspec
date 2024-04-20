@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activemodel", "~> 7.1"
   spec.add_dependency "activesupport", "~> 7.1"
   spec.add_dependency "after_commit_everywhere", "~> 1.4"
+  spec.add_dependency "rails", "~> 7.1"
 end

@@ -2,7 +2,8 @@
 # frozen_string_literal: true
 
 require "bleuprint/services/base"
-
+require "rails"
+require "active_support/core_ext"
 module Bleuprint
   module Dashboards
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength

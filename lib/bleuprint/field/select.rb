@@ -1,6 +1,7 @@
 # typed: true
 
 require "bleuprint/field/base"
+require "active_support/core_ext/hash/indifferent_access"
 module Bleuprint
   module Field
     class Select < Base
@@ -36,7 +37,7 @@ module Bleuprint
       end
 
       def active_record_enum_values
-        dashboard.resource_class.defined_enums[attribute.to_s].map(&:first).map do |value|
+        dashboard.resource_class.defined_enums.with_indifferent_access[attribute.to_s].map(&:first).map do |value|
           { value:, label: value.humanize }
         end
       end

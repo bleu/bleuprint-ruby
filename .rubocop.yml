@@ -1,9 +1,9 @@
 require:
-  - rubocop-minitest
   - rubocop-packaging
   - rubocop-performance
   - rubocop-rake
   - rubocop-sorbet
+  - rubocop-rspec
 
 AllCops:
   DisplayCopNames: true
@@ -52,7 +52,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Metrics/AbcSize:
   Max: 20
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/BlockLength:
   Exclude:
@@ -61,18 +61,15 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/MethodLength:
   Max: 18
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/ParameterLists:
   Max: 6
-
-Minitest/EmptyLineBeforeAssertionMethods:
-  Enabled: false
 
 Naming/MemoizedInstanceVariableName:
   Enabled: false
@@ -109,3 +106,30 @@ Style/StringLiterals:
 
 Style/TrivialAccessors:
   AllowPredicates: true
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/VerifiedDoubleReference:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false

@@ -1,5 +1,6 @@
 # typed: false
 
+require "after_commit_everywhere"
 require "active_record"
 module Bleuprint
   module Services

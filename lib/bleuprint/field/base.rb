@@ -1,6 +1,7 @@
 # typed: false
 
 require_relative "deferred"
+require "active_support/inflector"
 
 module Bleuprint
   module Field
@@ -51,11 +52,23 @@ module Bleuprint
       end
 
       def label
-        dashboard.resource_class.human_attribute_name(attribute)
+        if options[:label].is_a?(String)
+          options[:label]
+        elsif options[:label].is_a?(Proc)
+          options[:label].call(self, resource)
+        else
+          dashboard.resource_class.human_attribute_name(attribute)
+        end
       end
 
       def hidden?
-        false
+        if options[:hidden].is_a?(TrueClass) || options[:hidden].is_a?(FalseClass)
+          options[:hidden]
+        elsif options[:hidden].is_a?(Proc)
+          options[:hidden].call(self, resource)
+        else
+          false
+        end
       end
     end
   end
