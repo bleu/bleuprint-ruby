@@ -1,7 +1,9 @@
+# rubocop:disable RSpec/LeakyConstantDeclaration
+# rubocop:disable Lint/ConstantDefinitionInBlock
 # typed: false
 
 RSpec.describe Bleuprint::Dashboards::Base do
-  class TestDashboard < Bleuprint::Dashboards::Base # rubocop:disable Lint/ConstantDefinitionInBlock
+  class TestDashboard < Bleuprint::Dashboards::Base
     ATTRIBUTE_TYPES = {
       name: Bleuprint::Field::Text,
       age: Bleuprint::Field::Number
@@ -15,7 +17,9 @@ RSpec.describe Bleuprint::Dashboards::Base do
 
     SEARCH_FILTER = {
       name: :name,
-      filter: ->(scope, params) { scope.where("name LIKE ?", "%#{params[:name]}%") }
+      filter: lambda { |scope, params|
+                scope.where("name LIKE ?", "%#{params[:name]}%")
+              }
     }.freeze
 
     SHOW_PAGE_ATTRIBUTES = %i[name age].freeze
@@ -28,7 +32,10 @@ RSpec.describe Bleuprint::Dashboards::Base do
       Struct.new(:name, :age) do
         class << self
           def columns
-            [double(name: "name", type: :string), double(name: "age", type: :integer)]
+            [
+              double(name: "name", type: :string),
+              double(name: "age", type: :integer)
+            ]
           end
 
           def where(*_args, **_kwargs)
@@ -62,7 +69,14 @@ RSpec.describe Bleuprint::Dashboards::Base do
 
     describe ".actions_json" do
       it "provides action configuration" do
-        expect(TestDashboard.actions_json).to eq([{ label: "Edit", url: "/edit" }])
+        expect(TestDashboard.actions_json).to eq(
+          [
+            {
+              label: "Edit",
+              url:   "/edit"
+            }
+          ]
+        )
       end
     end
 
@@ -81,7 +95,11 @@ RSpec.describe Bleuprint::Dashboards::Base do
     describe ".columns" do
       it "returns columns based on attribute types and collection attributes" do
         columns = TestDashboard.columns
-        expect(columns.map { |c| c[:accessorKey] }).to include("name", "age")
+        expect(
+          columns.map do |c|
+            c[:accessorKey]
+          end
+        ).to include("name", "age")
       end
     end
 
@@ -96,7 +114,7 @@ RSpec.describe Bleuprint::Dashboards::Base do
       let(:scope) { TestDashboard.resource_class.where }
 
       it "applies filters to the scope based on collection filters" do
-        expect(scope).to receive(:where).with(age: 20).and_return(scope)
+        allow(scope).to receive(:where).with(age: 20).and_return(scope)
         filtered_scope = TestDashboard.apply_filters(scope, age: 20)
         expect(filtered_scope).to eq(scope)
       end
@@ -107,7 +125,8 @@ RSpec.describe Bleuprint::Dashboards::Base do
       let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
 
       it "applies sorting based on provided sorting options" do
-        expect(scope).to receive(:order).with("name asc").and_return(scope)
+        allow(scope).to receive(:order).with("name asc").and_return(scope)
+
         sorted_scope = TestDashboard.apply_sorting(scope, sorting)
         expect(sorted_scope).to eq(scope)
       end
@@ -118,8 +137,8 @@ RSpec.describe Bleuprint::Dashboards::Base do
       let(:pagination) { { per_page: 2, page: 1 } }
 
       it "applies pagination to the scope based on provided pagination options" do
-        expect(scope).to receive(:page).with(2).and_return(scope)
-        expect(scope).to receive(:per).with(2).and_return(scope)
+        allow(scope).to receive(:page).with(2).and_return(scope)
+        allow(scope).to receive(:per).with(2).and_return(scope)
         paginated_scope = TestDashboard.apply_pagination(scope, pagination)
         expect(paginated_scope).to eq(scope)
       end
@@ -140,10 +159,23 @@ RSpec.describe Bleuprint::Dashboards::Base do
       let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
       let(:pagination) { { per_page: 1, page: 0 } }
 
-      it "applies filters, sorting, and pagination to the scope and returns structured results" do
-        result = TestDashboard.apply_filters_and_sorting(scope, filters, sorting, pagination)
-        expect(result).to include(scope: [], total: 1, per_page: 1, page: 0)
+      it "applies filters, sorting, and pagination to the scope and returns structured results" do # rubocop:disable RSpec/ExampleLength
+        result = TestDashboard.apply_filters_and_sorting(
+          scope,
+          filters,
+          sorting,
+          pagination
+        )
+        expect(result).to include(
+          scope: [],
+          total: 1,
+          per_page: 1,
+          page: 0
+        )
       end
     end
   end
 end
+
+# rubocop:enable RSpec/LeakyConstantDeclaration
+# rubocop:enable Lint/ConstantDefinitionInBlock

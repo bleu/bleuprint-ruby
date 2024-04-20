@@ -8,7 +8,8 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
       associative?: true,
       eager_load?: true,
       searchable?: true,
-      permitted_attribute: true
+      permitted_attribute: true,
+      html_class: "some-class"
     )
   end
   let(:options) { { searchable: false, searchable_fields: %w[name email], foreign_key: "user_id" } }
@@ -23,8 +24,8 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
 
   describe "#new" do
     it "creates a new instance of the deferred class with merged options" do
-      expect(deferred_class).to receive(:new).with({ **options, merged: "options" })
       deferred.new({ merged: "options" })
+      expect(deferred_class).to have_received(:new).with({ **options, merged: "options" })
     end
   end
 
@@ -43,15 +44,15 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
 
   describe "#associative?" do
     it "delegates to the deferred_class" do
-      expect(deferred_class).to receive(:associative?)
       deferred.associative?
+      expect(deferred_class).to have_received(:associative?)
     end
   end
 
   describe "#eager_load?" do
     it "delegates to the deferred_class" do
-      expect(deferred_class).to receive(:eager_load?)
       deferred.eager_load?
+      expect(deferred_class).to have_received(:eager_load?)
     end
   end
 
@@ -62,8 +63,8 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
 
     it "delegates to the deferred_class if option is not set" do
       deferred_without_option = described_class.new(deferred_class, {})
-      expect(deferred_class).to receive(:searchable?)
       deferred_without_option.searchable?
+      expect(deferred_class).to have_received(:searchable?)
     end
   end
 
@@ -83,16 +84,16 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
     context "when foreign_key is not specified in options" do
       it "delegates permitted_attribute to the deferred_class" do
         deferred_without_foreign_key = described_class.new(deferred_class, {})
-        expect(deferred_class).to receive(:permitted_attribute).with(:some_attr, {})
         deferred_without_foreign_key.permitted_attribute(:some_attr, {})
+        expect(deferred_class).to have_received(:permitted_attribute).with(:some_attr, {})
       end
     end
   end
 
   describe "delegation" do
     it "delegates html_class to the deferred_class" do
-      expect(deferred_class).to receive(:html_class)
       deferred.html_class
+      expect(deferred_class).to have_received(:html_class)
     end
   end
 end

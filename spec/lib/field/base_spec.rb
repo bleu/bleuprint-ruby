@@ -1,8 +1,7 @@
 # typed: false
 
 RSpec.describe Bleuprint::Field::Base do
-  subject { described_class.new(attribute, dashboard, resource, options) }
-
+  let(:field) { described_class.new(attribute, dashboard, resource, options) }
   let(:attribute) { :name }
   let(:dashboard) { double("Dashboard", resource_class:) }
   let(:resource_class) { double("ResourceClass", human_attribute_name: "Name") }
@@ -48,32 +47,32 @@ RSpec.describe Bleuprint::Field::Base do
 
   describe "#filterable?" do
     it "returns the value of .filterable?" do
-      expect(subject.filterable?).to eq(described_class.filterable?)
+      expect(field.filterable?).to eq(described_class.filterable?)
     end
   end
 
   describe "#type" do
     it "returns the value of .type" do
-      expect(subject.type).to eq(described_class.type)
+      expect(field.type).to eq(described_class.type)
     end
   end
 
   describe "#input_type" do
     it "returns the value of .input_type" do
-      expect(subject.input_type).to eq(described_class.input_type)
+      expect(field.input_type).to eq(described_class.input_type)
     end
   end
 
   describe "#name" do
     it "returns the attribute as a string" do
-      expect(subject.name).to eq("name")
+      expect(field.name).to eq("name")
     end
   end
 
   describe "#value" do
     context "when resource responds to the attribute" do
       it "returns the value of the attribute on the resource" do
-        expect(subject.value).to eq("John")
+        expect(field.value).to eq("John")
       end
     end
 
@@ -81,7 +80,7 @@ RSpec.describe Bleuprint::Field::Base do
       let(:resource) { double("Resource") }
 
       it "returns nil" do
-        expect(subject.value).to be_nil
+        expect(field.value).to be_nil
       end
     end
   end
@@ -91,7 +90,7 @@ RSpec.describe Bleuprint::Field::Base do
       let(:options) { { label: "Full Name" } }
 
       it "returns the string value of options[:label]" do
-        expect(subject.label).to eq("Full Name")
+        expect(field.label).to eq("Full Name")
       end
     end
 
@@ -99,13 +98,13 @@ RSpec.describe Bleuprint::Field::Base do
       let(:options) { { label: ->(field, resource) { "#{resource.name}'s #{field.attribute}" } } }
 
       it "calls the proc with the field and resource and returns the result" do
-        expect(subject.label).to eq("John's name")
+        expect(field.label).to eq("John's name")
       end
     end
 
     context "when options[:label] is not provided" do
       it "returns the human attribute name from the resource class" do
-        expect(subject.label).to eq("Name")
+        expect(field.label).to eq("Name")
       end
     end
   end
@@ -116,7 +115,7 @@ RSpec.describe Bleuprint::Field::Base do
         let(:options) { { hidden: true } }
 
         it "returns true" do
-          expect(subject.hidden?).to be true
+          expect(field.hidden?).to be true
         end
       end
 
@@ -124,7 +123,7 @@ RSpec.describe Bleuprint::Field::Base do
         let(:options) { { hidden: false } }
 
         it "returns false" do
-          expect(subject.hidden?).to be false
+          expect(field.hidden?).to be false
         end
       end
     end
@@ -134,7 +133,7 @@ RSpec.describe Bleuprint::Field::Base do
 
       context "when the proc returns true" do
         it "returns true" do
-          expect(subject.hidden?).to be true
+          expect(field.hidden?).to be true
         end
       end
 
@@ -142,14 +141,14 @@ RSpec.describe Bleuprint::Field::Base do
         let(:resource) { double("Resource", name: "Jane") }
 
         it "returns false" do
-          expect(subject.hidden?).to be false
+          expect(field.hidden?).to be false
         end
       end
     end
 
     context "when options[:hidden] is not provided" do
       it "returns nil" do
-        expect(subject.hidden?).to be false
+        expect(field.hidden?).to be false
       end
     end
   end
