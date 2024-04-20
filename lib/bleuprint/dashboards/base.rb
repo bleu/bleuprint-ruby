@@ -6,12 +6,23 @@ require "rails"
 require "active_support/core_ext"
 module Bleuprint
   module Dashboards
+    Context = Struct.new(:pagination, :sorting, :filters, keyword_init: true)
+
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength
       ATTRIBUTE_TYPES = {}.freeze
       COLLECTION_ATTRIBUTES = [].freeze
 
-      def self.call!(*)
-        { columns: columns(*), filters: filters(*), search: search(*) }
+      def initialize(pagination, sorting, filters)
+        super()
+        @context = Context.new(pagination:, sorting:, filters:)
+      end
+
+      def call!
+        self.class.call!(context: @context)
+      end
+
+      def self.call!(*, **)
+        { columns: columns(*, **), filters: filters(*, **), search: search(*, **) }
       end
 
       def self.actions_json
@@ -56,9 +67,9 @@ module Bleuprint
         end
       end
 
-      def self.columns(*)
+      def self.columns(*, context: nil)
         columns = self::ATTRIBUTE_TYPES.slice(*self::COLLECTION_ATTRIBUTES).filter_map do |k, v|
-          field = v.new(k, self, resource_class.new)
+          field = v.new(k, self, resource_class.new, context:)
           {
             accessorKey: field.name,
             title: field.label,
