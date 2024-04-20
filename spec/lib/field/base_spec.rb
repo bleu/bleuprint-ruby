@@ -1,13 +1,13 @@
 # typed: false
 
 RSpec.describe Bleuprint::Field::Base do
+  subject { described_class.new(attribute, dashboard, resource, options) }
+
   let(:attribute) { :name }
   let(:dashboard) { double("Dashboard", resource_class:) }
   let(:resource_class) { double("ResourceClass", human_attribute_name: "Name") }
   let(:resource) { instance_double("Resource", name: "John") }
   let(:options) { {} }
-
-  subject { described_class.new(attribute, dashboard, resource, options) }
 
   describe ".with_options" do
     it "returns a new instance of Deferred with the class and options" do
@@ -149,7 +149,7 @@ RSpec.describe Bleuprint::Field::Base do
 
     context "when options[:hidden] is not provided" do
       it "returns nil" do
-        expect(subject.hidden?).to be_nil
+        expect(subject.hidden?).to be false
       end
     end
   end

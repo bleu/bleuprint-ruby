@@ -30,6 +30,7 @@ RSpec.describe Bleuprint::Field::Select, type: :model do
 
     context "when resource does not respond to the attribute" do
       before { allow(resource).to receive(:respond_to?).with(attribute).and_return(false) }
+
       it "returns nil" do
         expect(field.value).to be_nil
       end
@@ -39,6 +40,7 @@ RSpec.describe Bleuprint::Field::Select, type: :model do
   describe "#selectable_options" do
     context "when options include a collection" do
       let(:options) { { collection: [{ value: "active", label: "Active" }] } }
+
       it "returns the collection from options" do
         expect(field.selectable_options).to eq([{ value: "active", label: "Active" }])
       end
@@ -49,6 +51,7 @@ RSpec.describe Bleuprint::Field::Select, type: :model do
         allow(field).to receive(:active_record_enum?).and_return(true)
         allow(resource_class).to receive(:defined_enums).and_return(status: { "active" => 0 })
       end
+
       it "returns options from ActiveRecord enum" do
         expect(field.selectable_options).to include({ value: "active", label: "Active" })
       end
@@ -59,6 +62,7 @@ RSpec.describe Bleuprint::Field::Select, type: :model do
         allow(field).to receive(:enumerate_it_enum?).and_return(true)
         allow(resource_class).to receive(:enumerations).and_return(status: [%w[Active active]])
       end
+
       it "returns options from EnumerateIt enum" do
         expect(field.selectable_options).to include({ value: "active", label: "Active" })
       end

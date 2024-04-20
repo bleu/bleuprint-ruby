@@ -1,178 +1,149 @@
 # typed: false
-# # typed: true
 
-# RSpec.describe Bleuprint::Dashboards::Base do
-#   let(:dashboard_class) do
-#     Class.new(described_class) do
-#       ATTRIBUTE_TYPES = {
-#         name: Bleuprint::Field::Text,
-#         age: Bleuprint::Field::Number
-#       }.freeze
-#       COLLECTION_ATTRIBUTES = %i[name age].freeze
-#       COLLECTION_FILTERS = {
-#         age: ->(scope, value) { scope.where(age: value) }
-#       }.freeze
-#       SEARCH_FILTER = {
-#         name: :name,
-#         filter: ->(scope, value) { scope.where("name LIKE ?", "%#{value}%") }
-#       }.freeze
+RSpec.describe Bleuprint::Dashboards::Base do
+  class TestDashboard < Bleuprint::Dashboards::Base # rubocop:disable Lint/ConstantDefinitionInBlock
+    ATTRIBUTE_TYPES = {
+      name: Bleuprint::Field::Text,
+      age: Bleuprint::Field::Number
+    }.freeze
 
-#       def self.actions_json(*_args)
-#         [{ label: "Edit", url: "/edit" }]
-#       end
+    COLLECTION_ATTRIBUTES = %i[name age].freeze
 
-#       def self.resource_class
-#         OpenStruct
-#       end
-#     end
-#   end
+    COLLECTION_FILTERS = {
+      age: ->(scope, params) { scope.where(age: params[:age]) }
+    }.freeze
 
-#   describe ".call!" do
-#     it "returns columns, filters, and search" do
-#       result = dashboard_class.call!
-#       expect(result).to include(:columns, :filters, :search)
-#     end
-#   end
+    SEARCH_FILTER = {
+      name: :name,
+      filter: ->(scope, params) { scope.where("name LIKE ?", "%#{params[:name]}%") }
+    }.freeze
 
-#   describe ".filters" do
-#     it "returns filters based on COLLECTION_FILTERS" do
-#       filters = dashboard_class.filters
-#       expect(filters).to eq(
-#         [
-#           { title: "Age", value: :age, options: [] }
-#         ]
-#       )
-#     end
-#   end
+    SHOW_PAGE_ATTRIBUTES = %i[name age].freeze
 
-#   describe ".search" do
-#     it "returns search key based on SEARCH_FILTER" do
-#       search = dashboard_class.search
-#       expect(search).to eq({ key: :name })
-#     end
-#   end
+    def self.actions_json(*_args)
+      [{ label: "Edit", url: "/edit" }]
+    end
 
-#   describe ".resource_class" do
-#     it "returns the correct resource class" do
-#       expect(dashboard_class.resource_class).to eq(OpenStruct)
-#     end
-#   end
+    def self.resource_class
+      Struct.new(:name, :age) do
+        class << self
+          def columns
+            [double(name: "name", type: :string), double(name: "age", type: :integer)]
+          end
 
-#   describe ".columns" do
-#     it "returns columns based on ATTRIBUTE_TYPES and COLLECTION_ATTRIBUTES" do
-#       columns = dashboard_class.columns
-#       expect(columns).to eq(
-#         [
-#           {
-#             accessorKey: "name",
-#             title: "Name",
-#             type: :string,
-#             hide: nil,
-#             field_options: {}
-#           },
-#           {
-#             accessorKey: "age",
-#             title: "Age",
-#             type: :number,
-#             hide: nil,
-#             field_options: {}
-#           },
-#           {
-#             id: "actions",
-#             type: "actions",
-#             actions: [{ label: "Edit", url: "/edit" }]
-#           }
-#         ]
-#       )
-#     end
-#   end
+          def where(*_args, **_kwargs)
+            scope = Object.new
+            scope.define_singleton_method(:where) { |*_| scope }
+            scope.define_singleton_method(:order) { |*_| scope }
+            scope.define_singleton_method(:page) { |*_| scope }
+            scope.define_singleton_method(:per) { |*_| scope }
+            scope.define_singleton_method(:total_count) { 1 }
+            scope.define_singleton_method(:map) { [] }
+            scope
+          end
 
-#   describe ".show_page_attributes" do
-#     let(:resource) { OpenStruct.new(name: "John", age: 25) }
+          def human_attribute_name(attr)
+            attr.to_s.humanize
+          end
+        end
+      end
+    end
+  end
 
-#     it "returns show page attributes based on ATTRIBUTE_TYPES" do
-#       attributes = dashboard_class.show_page_attributes(resource)
-#       expect(attributes).to eq(
-#         [
-#           {
-#             accessorKey: "name",
-#             title: "Name",
-#             type: :string,
-#             value: "John",
-#             field_options: {}
-#           },
-#           {
-#             accessorKey: "age",
-#             title: "Age",
-#             type: :number,
-#             value: 25,
-#             field_options: {}
-#           }
-#         ]
-#       )
-#     end
-#   end
+  describe "Functionality of TestDashboard" do
+    let(:resource) { double(name: "John Doe", age: 30) }
 
-#   describe ".apply_filters" do
-#     let(:scope) { [OpenStruct.new(age: 20), OpenStruct.new(age: 30)] }
-#     let(:params) { { age: 20 } }
+    describe ".call!" do
+      it "returns columns, filters, and search configuration" do
+        result = TestDashboard.call!
+        expect(result).to include(:columns, :filters, :search)
+      end
+    end
 
-#     it "applies filters to the scope based on COLLECTION_FILTERS" do
-#       filtered_scope = dashboard_class.apply_filters(scope, params)
-#       expect(filtered_scope).to eq([OpenStruct.new(age: 20)])
-#     end
-#   end
+    describe ".actions_json" do
+      it "provides action configuration" do
+        expect(TestDashboard.actions_json).to eq([{ label: "Edit", url: "/edit" }])
+      end
+    end
 
-#   describe ".apply_sorting" do
-#     let(:scope) { [OpenStruct.new(name: "John"), OpenStruct.new(name: "Alice")] }
-#     let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
+    describe ".filters" do
+      it "provides filters based on the configuration" do
+        expect(TestDashboard.filters.first).to include(title: "Age")
+      end
+    end
 
-#     it "applies sorting to the scope based on the provided sorting options" do
-#       sorted_scope = dashboard_class.apply_sorting(scope, sorting)
-#       expect(sorted_scope).to eq([OpenStruct.new(name: "Alice"), OpenStruct.new(name: "John")])
-#     end
-#   end
+    describe ".search" do
+      it "provides search configuration" do
+        expect(TestDashboard.search).to eq({ key: :name })
+      end
+    end
 
-#   describe ".apply_pagination" do
-#     let(:scope) { [1, 2, 3, 4, 5] }
-#     let(:pagination) { { per_page: 2, page: 1 } }
+    describe ".columns" do
+      it "returns columns based on attribute types and collection attributes" do
+        columns = TestDashboard.columns
+        expect(columns.map { |c| c[:accessorKey] }).to include("name", "age")
+      end
+    end
 
-#     it "applies pagination to the scope based on the provided pagination options" do
-#       paginated_scope = dashboard_class.apply_pagination(scope, pagination)
-#       expect(paginated_scope).to eq([3, 4])
-#     end
-#   end
+    describe ".show_page_attributes" do
+      it "returns attributes for the show page with values from the resource" do
+        attributes = TestDashboard.show_page_attributes(resource)
+        expect(attributes.first).to include(value: "John Doe")
+      end
+    end
 
-#   describe ".apply_field_serialization" do
-#     let(:scope) { [OpenStruct.new(name: "John", age: 25), OpenStruct.new(name: "Alice", age: 30)] }
+    describe ".apply_filters" do
+      let(:scope) { TestDashboard.resource_class.where }
 
-#     it "serializes the scope based on ATTRIBUTE_TYPES" do
-#       serialized_scope = dashboard_class.apply_field_serialization(scope)
-#       expect(serialized_scope).to eq(
-#         [
-#           { "name" => "John", "age" => 25 },
-#           { "name" => "Alice", "age" => 30 }
-#         ]
-#       )
-#     end
-#   end
+      it "applies filters to the scope based on collection filters" do
+        expect(scope).to receive(:where).with(age: 20).and_return(scope)
+        filtered_scope = TestDashboard.apply_filters(scope, age: 20)
+        expect(filtered_scope).to eq(scope)
+      end
+    end
 
-#   describe ".apply_filters_and_sorting" do
-#     let(:scope) { [OpenStruct.new(name: "John", age: 25), OpenStruct.new(name: "Alice", age: 30)] }
-#     let(:filters) { { age: 25 } }
-#     let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
-#     let(:pagination) { { per_page: 1, page: 0 } }
+    describe ".apply_sorting" do
+      let(:scope) { TestDashboard.resource_class.where }
+      let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
 
-#     it "applies filters, sorting, and pagination to the scope and returns the result" do
-#       result = dashboard_class.apply_filters_and_sorting(scope, filters, sorting, pagination)
-#       expect(result).to eq(
-#         {
-#           scope:    [{ "name" => "John", "age" => 25 }],
-#           total:    1,
-#           per_page: 1,
-#           page:     0
-#         }
-#       )
-#     end
-#   end
-# end
+      it "applies sorting based on provided sorting options" do
+        expect(scope).to receive(:order).with("name asc").and_return(scope)
+        sorted_scope = TestDashboard.apply_sorting(scope, sorting)
+        expect(sorted_scope).to eq(scope)
+      end
+    end
+
+    describe ".apply_pagination" do
+      let(:scope) { TestDashboard.resource_class.where }
+      let(:pagination) { { per_page: 2, page: 1 } }
+
+      it "applies pagination to the scope based on provided pagination options" do
+        expect(scope).to receive(:page).with(2).and_return(scope)
+        expect(scope).to receive(:per).with(2).and_return(scope)
+        paginated_scope = TestDashboard.apply_pagination(scope, pagination)
+        expect(paginated_scope).to eq(scope)
+      end
+    end
+
+    describe ".apply_field_serialization" do
+      let(:scope) { [resource] }
+
+      it "serializes the scope based on attribute types" do
+        serialized_scope = TestDashboard.apply_field_serialization(scope)
+        expect(serialized_scope).to all(include("name"))
+      end
+    end
+
+    describe ".apply_filters_and_sorting" do
+      let(:scope) { TestDashboard.resource_class.where }
+      let(:filters) { { age: 25 } }
+      let(:sorting) { { sort_column: "name", sort_direction: "asc" } }
+      let(:pagination) { { per_page: 1, page: 0 } }
+
+      it "applies filters, sorting, and pagination to the scope and returns structured results" do
+        result = TestDashboard.apply_filters_and_sorting(scope, filters, sorting, pagination)
+        expect(result).to include(scope: [], total: 1, per_page: 1, page: 0)
+      end
+    end
+  end
+end

@@ -62,11 +62,12 @@ module Bleuprint
       end
 
       def hidden?
-        # check if options[:hidden] is a boolean
         if options[:hidden].is_a?(TrueClass) || options[:hidden].is_a?(FalseClass)
           options[:hidden]
         elsif options[:hidden].is_a?(Proc)
           options[:hidden].call(self, resource)
+        else
+          false
         end
       end
     end

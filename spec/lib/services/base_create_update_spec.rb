@@ -1,18 +1,18 @@
 # typed: false
 
 RSpec.describe Bleuprint::Services::ActiveRecord::BaseCreateUpdate, type: :service do
-  let(:resource) { double("Resource", save!: true) }
-  let(:params) { {} }
-  let(:current_user) { double("User", id: 1) }
+  let(:service) { described_class.new(resource, params, current_user) }
 
-  subject { described_class.new(resource, params, current_user) }
+  let(:resource) { instance_double("Resource", save!: true) }
+  let(:params) { {} }
+  let(:current_user) { instance_double("User", id: 1) }
 
   describe "#call!" do
     it "updates resource with params and saves" do
       allow(resource).to receive(:assign_attributes).and_return(true)
-      allow(subject).to receive(:in_transaction).and_yield # Mock `in_transaction` to yield directly
+      allow(service).to receive(:in_transaction).and_yield # Mock `in_transaction` to yield directly
 
-      expect(subject.call!).to include(success: true, resource:)
+      expect(service.call!).to include(success: true, resource:)
     end
   end
 end

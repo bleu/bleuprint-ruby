@@ -3,7 +3,7 @@
 require "test_helper"
 
 class FieldTest < Minitest::Test
-  def test_base_autoload # rubocop:disable Minitest/MultipleAssertions
+  def test_base_autoload
     assert Bleuprint::Field::Base
     assert Bleuprint::Field::Boolean
     assert Bleuprint::Field::Color

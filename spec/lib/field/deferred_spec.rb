@@ -57,7 +57,7 @@ RSpec.describe Bleuprint::Field::Deferred, type: :model do
 
   describe "#searchable?" do
     it "returns the option if set" do
-      expect(deferred.searchable?).to eq(false)
+      expect(deferred.searchable?).to be(false)
     end
 
     it "delegates to the deferred_class if option is not set" do

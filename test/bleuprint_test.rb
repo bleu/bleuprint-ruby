@@ -4,7 +4,7 @@
 require "minitest/autorun"
 
 class BleuprintTest < Minitest::Test
-  def test_autoloads_modules # rubocop:disable Minitest/MultipleAssertions
+  def test_autoloads_modules
     assert Bleuprint.version
     assert Bleuprint::Field
     assert Bleuprint::Forms
