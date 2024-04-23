@@ -83,6 +83,24 @@ RSpec.describe Bleuprint::Field::Base do
         expect(field.value).to be_nil
       end
     end
+
+    context "when options[:value] is a proc" do
+      let(:options) { { value: ->(field, resource) { "#{resource.name}'s #{field.attribute}" } } }
+
+      it "calls the proc with the field and resource and returns the result" do
+        expect(field.value).to eq("John's name")
+      end
+
+      context "when the proc returns nil" do
+        let(:options) { { value: ->(_field, _resource) {} } }
+
+        let(:resource) { double("Resource", name: "John") }
+
+        it "returns the value of the attribute on the resource" do
+          expect(field.value).to eq("John")
+        end
+      end
+    end
   end
 
   describe "#label" do

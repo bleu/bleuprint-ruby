@@ -48,17 +48,23 @@ module Bleuprint
       end
 
       def value
-        resource.send(attribute) if resource.respond_to?(attribute)
+        value = (options[:value].call(self, resource) if options[:value].is_a?(Proc))
+
+        value ||= resource.send(attribute) if resource.respond_to?(attribute)
+
+        value
       end
 
       def label
-        if options[:label].is_a?(String)
-          options[:label]
-        elsif options[:label].is_a?(Proc)
-          options[:label].call(self, resource)
-        else
-          dashboard.resource_class.human_attribute_name(attribute)
-        end
+        label_value = if options[:label].is_a?(String)
+                        options[:label]
+                      elsif options[:label].is_a?(Proc)
+                        options[:label].call(self, resource)
+                      end
+
+        label_value ||= dashboard.resource_class.human_attribute_name(attribute)
+
+        label_value
       end
 
       def hidden?
