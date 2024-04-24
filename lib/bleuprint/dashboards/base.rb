@@ -6,7 +6,7 @@ require "rails"
 require "active_support/core_ext"
 module Bleuprint
   module Dashboards
-    Context = Struct.new(:pagination, :sorting, :filters, keyword_init: true)
+    DashboardContext = Struct.new(:pagination, :sorting, :filters, keyword_init: true)
 
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength
       ATTRIBUTE_TYPES = {}.freeze
@@ -14,19 +14,23 @@ module Bleuprint
 
       def initialize(pagination, sorting, filters)
         super()
-        @context = Context.new(pagination:, sorting:, filters:)
+        @context = DashboardContext.new(pagination:, sorting:, filters:)
       end
 
-      def call!
-        self.class.call!(context: @context)
+      def call!(*, **)
+        self.class.call!(*, context: @context, **)
       end
 
       def self.call!(*, **)
         { columns: columns(*, **), filters: filters(*, **), search: search(*, **) }
       end
 
-      def self.actions_json
-        raise NotImplementedError
+      def self.actions_json(*)
+        self::ATTRIBUTE_TYPES.filter_map do |key, value|
+          next unless value.is_a?(Bleuprint::Field::Deferred)
+
+          value.new(key, self, resource_class.new).as_json
+        end
       end
 
       def self.filters(*)
