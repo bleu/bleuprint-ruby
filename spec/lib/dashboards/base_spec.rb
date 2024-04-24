@@ -6,7 +6,10 @@ RSpec.describe Bleuprint::Dashboards::Base do
   class TestDashboard < Bleuprint::Dashboards::Base
     ATTRIBUTE_TYPES = {
       name: Bleuprint::Field::Text,
-      age: Bleuprint::Field::Number,
+      age: Bleuprint::Field::Number
+    }.freeze
+
+    ACTIONS = {
       action_edit: Bleuprint::Field::Action::Link.with_options(
         label: "Edit",
         value: ->(_field, resource) { "/resources/#{resource.id || 'RESOURCE_ID'}/edit" }
