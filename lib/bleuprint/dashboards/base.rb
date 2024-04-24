@@ -10,6 +10,7 @@ module Bleuprint
 
     class Base < Bleuprint::Services::Base # rubocop:disable Metrics/ClassLength
       ATTRIBUTE_TYPES = {}.freeze
+      ACTIONS = {}.freeze
       COLLECTION_ATTRIBUTES = [].freeze
 
       def initialize(pagination, sorting, filters)
@@ -21,19 +22,24 @@ module Bleuprint
         self.class.call!(*, context: @context, **)
       end
 
-      def self.call!(*, **)
-        { columns: columns(*, **), filters: filters(*, **), search: search(*, **) }
+      def self.call!(...)
+        { columns: columns(...), filters: filters(...), search: search(...) }
       end
 
-      def self.actions_json(*)
-        self::ATTRIBUTE_TYPES.filter_map do |key, value|
+      def self.actions_json(*, resource: nil, **)
+        self::ACTIONS.filter_map do |key, value|
           next unless value.is_a?(Bleuprint::Field::Deferred)
 
-          value.new(key, self, resource_class.new).as_json
+          # TODO: add this to the test
+          unless Bleuprint::Field::Action.const_defined?(value.deferred_class.name)
+            raise "Deferred class #{value.deferred_class.name} not found."
+          end
+
+          value.new(key, self, resource || resource_class.new).as_json
         end
       end
 
-      def self.filters(*)
+      def self.filters(*, **)
         return unless defined?(self::COLLECTION_FILTERS)
 
         self::COLLECTION_FILTERS.map do |field_name, _filter_proc|
@@ -52,7 +58,7 @@ module Bleuprint
         end
       end
 
-      def self.search(*)
+      def self.search(*, **)
         return unless defined?(self::SEARCH_FILTER)
 
         {
@@ -71,7 +77,7 @@ module Bleuprint
         end
       end
 
-      def self.columns(*, context: nil)
+      def self.columns(*, context: nil, **)
         columns = self::ATTRIBUTE_TYPES.slice(*self::COLLECTION_ATTRIBUTES).filter_map do |k, v|
           field = v.new(k, self, resource_class.new, context:)
           {
@@ -150,10 +156,14 @@ module Bleuprint
 
       def self.apply_field_serialization(scope)
         scope.map do |resource|
-          self::ATTRIBUTE_TYPES.filter_map do |field_name, field_type|
+          attrs = self::ATTRIBUTE_TYPES.slice(*self::COLLECTION_ATTRIBUTES).filter_map do |field_name, field_type|
             field = field_type.new(field_name, self, resource)
             [field.name, field.value]
           end.to_h
+
+          attrs[:actions] = actions_json(resource:)
+
+          attrs
         end
       end
 

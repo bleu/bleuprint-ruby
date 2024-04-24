@@ -44,7 +44,7 @@ module Bleuprint
       end
 
       def name
-        options[:name] || attribute.to_s
+        attribute.to_s
       end
 
       def value
