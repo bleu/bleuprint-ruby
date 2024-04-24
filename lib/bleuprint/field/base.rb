@@ -13,7 +13,7 @@ module Bleuprint
       end
 
       def self.type
-        name.demodulize.underscore.to_sym
+        name.gsub("Bleuprint::Field::", "").gsub("::", "").underscore.to_sym
       end
 
       def self.input_type
@@ -44,11 +44,11 @@ module Bleuprint
       end
 
       def name
-        attribute.to_s
+        options[:name] || attribute.to_s
       end
 
       def value
-        value = (options[:value].call(self, resource) if options[:value].is_a?(Proc))
+        value = options[:value].call(self, resource) if options[:value].is_a?(Proc)
 
         value ||= resource.send(attribute) if resource.respond_to?(attribute)
 

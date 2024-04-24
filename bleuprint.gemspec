@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "after_commit_everywhere", "~> 1.4"
   spec.add_dependency "memery", "~> 1.5"
   spec.add_dependency "rails", "~> 7.1"
+  spec.add_dependency "sorbet-runtime", "~> 0.5"
 end

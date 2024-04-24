@@ -6,7 +6,17 @@ RSpec.describe Bleuprint::Dashboards::Base do
   class TestDashboard < Bleuprint::Dashboards::Base
     ATTRIBUTE_TYPES = {
       name: Bleuprint::Field::Text,
-      age: Bleuprint::Field::Number
+      age: Bleuprint::Field::Number,
+      action_edit: Bleuprint::Field::Action::Link.with_options(
+        label: "Edit",
+        value: ->(_field, resource) { "/resources/#{resource.id || 'RESOURCE_ID'}/edit" }
+      ),
+      action_delete: Bleuprint::Field::Action::Form.with_options(
+        label: "Delete",
+        value: ->(_field, resource) { "/resources/#{resource.id || 'RESOURCE_ID'}/delete" },
+        method: :delete,
+        trigger_confirmation: true
+      )
     }.freeze
 
     COLLECTION_ATTRIBUTES = %i[name age].freeze
@@ -24,15 +34,12 @@ RSpec.describe Bleuprint::Dashboards::Base do
 
     SHOW_PAGE_ATTRIBUTES = %i[name age].freeze
 
-    def self.actions_json(*_args)
-      [{ label: "Edit", url: "/edit" }]
-    end
-
     def self.resource_class
-      Struct.new(:name, :age) do
+      Struct.new(:id, :name, :age) do
         class << self
           def columns
             [
+              double(name: "id", type: :integer),
               double(name: "name", type: :string),
               double(name: "age", type: :integer)
             ]
@@ -58,7 +65,7 @@ RSpec.describe Bleuprint::Dashboards::Base do
   end
 
   describe "Functionality of TestDashboard" do
-    let(:resource) { double(name: "John Doe", age: 30) }
+    let(:resource) { double(id: 123, name: "John Doe", age: 30) }
 
     describe "self.call!" do
       it "returns columns, filters, and search configuration" do
@@ -68,14 +75,22 @@ RSpec.describe Bleuprint::Dashboards::Base do
     end
 
     describe ".actions_json" do
-      it "provides action configuration" do
-        expect(TestDashboard.actions_json).to eq(
-          [
-            {
-              label: "Edit",
-              url:   "/edit"
-            }
-          ]
+      it "generates action links and forms with dynamic URLs" do # rubocop:disable RSpec/ExampleLength
+        actions = TestDashboard.actions_json
+
+        expect(actions).to include(
+          {
+            name: "Edit",
+            url_path: "/resources/RESOURCE_ID/edit",
+            type: :link
+          },
+          {
+            name: "Delete",
+            url_path: "/resources/RESOURCE_ID/delete",
+            type: :form,
+            method: :delete,
+            trigger_confirmation: true
+          }
         )
       end
     end
@@ -180,7 +195,7 @@ RSpec.describe Bleuprint::Dashboards::Base do
         pagination = { per_page: 10, page: 1 }
         sorting = { sort_column: "name", sort_direction: "asc" }
         filters = { age: 25 }
-        context = Bleuprint::Dashboards::Context.new(pagination:, sorting:, filters:)
+        context = Bleuprint::Dashboards::DashboardContext.new(pagination:, sorting:, filters:)
         dashboard = TestDashboard.new(pagination, sorting, filters)
 
         result = dashboard.call!
@@ -204,7 +219,24 @@ RSpec.describe Bleuprint::Dashboards::Base do
               title:         "Age",
               type:          :number
             },
-            { actions: [{ label: "Edit", url: "/edit" }], id: "actions", type: "actions" }
+            {
+              actions: [
+                {
+                  name: "Edit",
+                  url_path: "/resources/RESOURCE_ID/edit",
+                  type: :link
+                },
+                {
+                  name: "Delete",
+                  method: :delete,
+                  trigger_confirmation: true,
+                  url_path: "/resources/RESOURCE_ID/delete",
+                  type: :form
+                }
+              ],
+              id:      "actions",
+              type:    "actions"
+            }
           ],
           filters: [{ title: "Age", value: "age" }],
           search: { key: :name }

@@ -11,8 +11,6 @@ gem "rubocop-rake", "0.6.0"
 gem "rubocop-rspec", "~> 2.29"
 gem "rubocop-sorbet"
 
-gem "sorbet-runtime"
-
 group :test, :development do
   gem "pry-byebug"
   gem "rspec-sorbet"
