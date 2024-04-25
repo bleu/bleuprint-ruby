@@ -9,6 +9,7 @@ module Bleuprint
 
       autoload :Link
       autoload :Form
+      autoload :Copy
     end
   end
 end
