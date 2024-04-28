@@ -13,7 +13,7 @@ module Bleuprint
         end&.first || resource.send(attribute)
       end
 
-      def selectable_options
+      def selectable_options(_context=nil)
         values =
           if options.key?(:collection)
             options.fetch(:collection)
