@@ -86,16 +86,16 @@ module Bleuprint
       end
 
       def apply_filters_and_sorting(scope)
-        scope = apply_filters(scope, context.filters)
-        scope = apply_sorting(scope, context.sorting)
-        scope = apply_pagination(scope, context.pagination)
+        scope = apply_filters(scope, context.filters.with_indifferent_access)
+        scope = apply_sorting(scope, context.sorting.with_indifferent_access)
+        scope = apply_pagination(scope, context.pagination.with_indifferent_access)
         total = scope.total_count
 
         {
           scope: apply_field_serialization(scope),
           total:,
-          per_page: context.pagination.fetch(:per_page, 10),
-          page: context.pagination.fetch(:page, 0).to_i
+          per_page: context.pagination.with_indifferent_access.fetch(:per_page, 10),
+          page: context.pagination.with_indifferent_access.fetch(:page, 0).to_i
         }
       end
 
@@ -150,10 +150,10 @@ module Bleuprint
           filters_to_apply[filter_name].present? ? filter_proc.call(current_scope, filters_to_apply) : current_scope
         end
 
-        return scope unless defined?(self::SEARCH_FILTER)
+        return scope unless defined?(self.class::SEARCH_FILTER)
 
-        if filters_to_apply[self::SEARCH_FILTER[:name]].present?
-          scope = self::SEARCH_FILTER[:filter].call(
+        if filters_to_apply[self.class::SEARCH_FILTER[:name]].present?
+          scope = self.class::SEARCH_FILTER[:filter].call(
             scope,
             filters_to_apply
           )
