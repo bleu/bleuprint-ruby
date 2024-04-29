@@ -143,12 +143,23 @@ module Bleuprint
         self.class::ATTRIBUTE_TYPES[field_name]&.new(field_name, self.class, resource_class.new)
       end
 
-      def apply_filters(scope, filters)
-        return scope if filters.blank?
+      def apply_filters(scope, filters_to_apply)
+        return scope if filters_to_apply.blank?
 
-        self.class::COLLECTION_FILTERS.reduce(scope) do |current_scope, (filter_name, filter_proc)|
-          filters[filter_name].present? ? filter_proc.call(current_scope, filters) : current_scope
+        scope = self.class::COLLECTION_FILTERS.reduce(scope) do |current_scope, (filter_name, filter_proc)|
+          filters_to_apply[filter_name].present? ? filter_proc.call(current_scope, filters_to_apply) : current_scope
         end
+
+        return scope unless defined?(self::SEARCH_FILTER)
+
+        if filters_to_apply[self::SEARCH_FILTER[:name]].present?
+          scope = self::SEARCH_FILTER[:filter].call(
+            scope,
+            filters_to_apply
+          )
+        end
+
+        scope
       end
 
       def apply_sorting(scope, sorting)
