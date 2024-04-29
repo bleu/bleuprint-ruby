@@ -76,6 +76,25 @@ module Bleuprint
           false
         end
       end
+
+      def selectable_options(_context=nil)
+        []
+      end
+
+      def placeholder
+        nil
+      end
+
+      def as_json
+        {
+          accessorKey: name,
+          title: label,
+          type:,
+          value:,
+          hide: hidden?,
+          field_options: options
+        }
+      end
     end
   end
 end
