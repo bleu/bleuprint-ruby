@@ -44,14 +44,19 @@ module Bleuprint
       def filters
         return [] unless self.class.const_defined?(:COLLECTION_FILTERS)
 
-        self.class::COLLECTION_FILTERS.filter_map do |field_name, filter_proc|
+        self.class::COLLECTION_FILTERS.filter_map do |field_name, _filter_proc|
           field = find_field(field_name)
+
           next unless field&.filterable?
+
+          filter_options = {}
+          filter_options[:options] = field.selectable_options if field.respond_to?(:selectable_options)
+          filter_options[:options] = field.filterable_options if field.respond_to?(:filterable_options)
 
           {
             title: field.label,
             value: field.name,
-            options: field.selectable_options(context) || filter_proc&.call(nil, {})
+            options: filter_options
           }
         end
       end
