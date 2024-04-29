@@ -14,8 +14,6 @@ module Bleuprint
 
   extend ::ActiveSupport::Autoload
 
-  autoload :VERSION
-
   autoload :Field
   autoload :Forms
   autoload :Services

@@ -110,7 +110,7 @@ module Bleuprint
           self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|
             field = field_class.new(field_name, self.class, resource)
             [field.name.to_sym, field.value]
-          end.merge(actions: actions_json(resource:))
+          end.merge(actions: actions_json(resource:)).with_indifferent_access
         end
       end
 

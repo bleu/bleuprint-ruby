@@ -164,7 +164,7 @@ RSpec.describe Bleuprint::Dashboards::Base do
           pagination
         )
 
-        expect(result).to eq(
+        expect(result).to match(
           {
             scope:    [
               {
