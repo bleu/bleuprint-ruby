@@ -168,6 +168,10 @@ module Bleuprint
           new.apply_field_serialization(scope)
         end
 
+        def show_page_attributes(resource)
+          new.show_page_attributes(resource)
+        end
+
         def resource_class
           name.split("::").last.singularize.delete_suffix("Dashboard").constantize # rubocop:disable Sorbet/ConstantsFromStrings
         end
