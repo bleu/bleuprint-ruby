@@ -2,7 +2,7 @@ require_relative "lib/bleuprint/version"
 
 Gem::Specification.new do |spec|
   spec.name = "bleuprint"
-  spec.version = "0.1.18"
+  spec.version = "0.1.19"
   spec.authors = ["José Ribeiro", "João Victor Assis"]
   spec.email = ["jose@bleu.studio", "joao@bleu.studio"]
 
