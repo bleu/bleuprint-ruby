@@ -42,6 +42,8 @@ module Bleuprint
       end
 
       def filters
+        return [] unless self.class.const_defined?(:COLLECTION_FILTERS)
+
         self.class::COLLECTION_FILTERS.filter_map do |field_name, filter_proc|
           field = find_field(field_name)
           next unless field&.filterable?
@@ -106,6 +108,10 @@ module Bleuprint
       end
 
       def apply_field_serialization(scope)
+        unless self.class.const_defined?(:ATTRIBUTE_TYPES) && self.class.const_defined?(:COLLECTION_ATTRIBUTES)
+          return {}
+        end
+
         scope.map do |resource|
           self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|
             field = field_class.new(field_name, self.class, resource)
@@ -124,7 +130,7 @@ module Bleuprint
 
       def validate_required_constants
         # ACTIONS is not required yet
-        required_constants = %i[ATTRIBUTE_TYPES COLLECTION_ATTRIBUTES COLLECTION_FILTERS]
+        required_constants = %i[ATTRIBUTE_TYPES COLLECTION_ATTRIBUTES]
         missing_constants = required_constants.reject { |constant| self.class.const_defined?(constant) }
         raise "Missing required constants: #{missing_constants.join(', ')}" if missing_constants.any?
       end
