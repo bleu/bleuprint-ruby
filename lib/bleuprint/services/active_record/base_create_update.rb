@@ -25,11 +25,11 @@ module Bleuprint
             # filter out params that don't exist in the resource
             filtered_params = params.select { |k, _v| resource.respond_to?(k) }
 
-            resource.assign_attributes(**filtered_params)
+            resource.assign_attributes(**filtered_params) if filtered_params.present?
 
             yield resource if block_given?
 
-            resource.save!
+            resource.save! if resource.changed?
 
             resource
           end

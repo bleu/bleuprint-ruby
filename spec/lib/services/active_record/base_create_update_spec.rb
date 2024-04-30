@@ -9,7 +9,7 @@ RSpec.describe Bleuprint::Services::ActiveRecord::BaseCreateUpdate, type: :servi
 
   describe "#call!" do
     it "updates resource with params and saves" do
-      allow(resource).to receive(:assign_attributes).and_return(true)
+      allow(resource).to receive_messages(assign_attributes: nil, persisted?: false, changed?: true)
       allow(service).to receive(:in_transaction).and_yield # Mock `in_transaction` to yield directly
 
       expect(service.call!).to include(success: true, resource:)
