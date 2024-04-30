@@ -85,7 +85,7 @@ module Bleuprint
         end.compact
       end
 
-      def apply_filters_and_sorting(scope)
+      def apply_filters_and_sorting(scope) # rubocop:disable Metrics/AbcSize
         scope = apply_filters(scope, context.filters.with_indifferent_access)
         scope = apply_sorting(scope, context.sorting.with_indifferent_access)
         scope = apply_pagination(scope, context.pagination.with_indifferent_access)
