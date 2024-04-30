@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 gemspec
 
-gem "minitest", "~> 5.11"
-gem "minitest-rg", "~> 5.3"
 gem "rake", "~> 13.0"
 gem "rubocop", "1.62.1"
 gem "rubocop-packaging", "0.5.2"
