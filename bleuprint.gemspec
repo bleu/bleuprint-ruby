@@ -2,9 +2,9 @@ require_relative "lib/bleuprint/version"
 
 Gem::Specification.new do |spec|
   spec.name = "bleuprint"
-  spec.version = "0.1.5"
-  spec.authors = ["José Ribeiro"]
-  spec.email = ["jose@bleu.studio"]
+  spec.version = "0.1.22"
+  spec.authors = ["José Ribeiro", "João Victor Assis"]
+  spec.email = ["jose@bleu.studio", "joao@bleu.studio"]
 
   spec.summary = "tools for developing RoR apps at bleu"
   spec.homepage = "https://github.com/bleu-fi/bleuprint-ruby"
@@ -31,4 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activemodel", "~> 7.1"
   spec.add_dependency "activesupport", "~> 7.1"
   spec.add_dependency "after_commit_everywhere", "~> 1.4"
+  spec.add_dependency "memery", "~> 1.5"
+  spec.add_dependency "rails", "~> 7.1"
+  spec.add_dependency "sorbet-runtime", "~> 0.5"
 end

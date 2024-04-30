@@ -4,4 +4,7 @@
 
 # typed: false
 
-module ::Rails; end
+module ActionMailer::Base::Mail::Message; end
+module ActionMailer::Collector; end
+module ActiveJob::Base::JITTER_DEFAULT; end
+module GlobalID::Identification::SignedGlobalID; end

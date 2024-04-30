@@ -1,10 +1,18 @@
 # typed: strict
 
 require "active_support/dependencies/autoload"
-module Bleuprint
-  extend ::ActiveSupport::Autoload
+require "memery"
+require "sorbet-runtime"
 
-  autoload :VERSION
+class Object
+  extend T::Sig
+  extend T::Helpers
+end
+
+module Bleuprint
+  include Memery
+
+  extend ::ActiveSupport::Autoload
 
   autoload :Field
   autoload :Forms

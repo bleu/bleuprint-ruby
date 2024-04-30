@@ -6,6 +6,7 @@ module Bleuprint
   module Field
     extend ::ActiveSupport::Autoload
 
+    autoload :Action
     autoload :Base
     autoload :Boolean
     autoload :Color

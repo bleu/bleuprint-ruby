@@ -8,6 +8,7 @@ module Bleuprint
         @model = model
       end
 
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
       def translate
         return unless @model.respond_to?(:validators)
 
@@ -34,6 +35,7 @@ module Bleuprint
 
         rules.symbolize_keys!
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
     end
   end
 end

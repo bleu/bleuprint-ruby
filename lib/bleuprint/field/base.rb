@@ -1,6 +1,7 @@
 # typed: false
 
 require_relative "deferred"
+require "active_support/inflector"
 
 module Bleuprint
   module Field
@@ -12,7 +13,7 @@ module Bleuprint
       end
 
       def self.type
-        name.demodulize.underscore.to_sym
+        name.gsub("Bleuprint::Field::", "").gsub("::", "").underscore.to_sym
       end
 
       def self.input_type
@@ -47,15 +48,52 @@ module Bleuprint
       end
 
       def value
-        resource.send(attribute) if resource.respond_to?(attribute)
+        value = options[:value].call(self, resource) if options[:value].is_a?(Proc)
+
+        value ||= resource.send(attribute) if resource.respond_to?(attribute)
+
+        value
       end
 
       def label
-        dashboard.resource_class.human_attribute_name(attribute)
+        label_value = if options[:label].is_a?(String)
+                        options[:label]
+                      elsif options[:label].is_a?(Proc)
+                        options[:label].call(self, resource)
+                      end
+
+        label_value ||= dashboard.resource_class.human_attribute_name(attribute)
+
+        label_value
       end
 
       def hidden?
-        false
+        if options[:hidden].is_a?(TrueClass) || options[:hidden].is_a?(FalseClass)
+          options[:hidden]
+        elsif options[:hidden].is_a?(Proc)
+          options[:hidden].call(self, resource)
+        else
+          false
+        end
+      end
+
+      def selectable_options(_context=nil)
+        []
+      end
+
+      def placeholder
+        nil
+      end
+
+      def as_json
+        {
+          accessorKey: name,
+          title: label,
+          type:,
+          value:,
+          hide: hidden?,
+          field_options: options
+        }
       end
     end
   end
