@@ -11,17 +11,6 @@ Bleuprint is a powerful Ruby gem that simplifies the creation of dashboards and 
 - Deferred Instantiation: Uses a deferred instantiation pattern for fields, allowing complex setups and runtime condition evaluations.
 - Service Objects: Provides base classes for implementing common service patterns, such as creating, updating, and destroying resources using ActiveRecord.
 
-Bleuprint
-Bleuprint is a powerful Ruby gem that simplifies the creation of dashboards and forms within Rails applications. It provides a structured and modular approach to managing fields, filters, and actions across different resources, making it easy to build robust and customizable admin interfaces.
-
-Features
-Modular Field Definitions: Define attributes and fields for various models, ensuring customization and control over how data is presented and manipulated in your application.
-Dashboard Functionality: Simplifies the process of creating dashboard views with sorting, pagination, and filtering capabilities.
-Form Handling: Streamlines form processes with automatic validations, input handling, and structured data output.
-Custom Field Types: Supports numerous field types like text, number, boolean, date, datetime, file, select, and hidden. These types provide customized rendering and interaction mechanisms.
-Deferred Instantiation: Uses a deferred instantiation pattern for fields, allowing complex setups and runtime condition evaluations.
-Service Objects: Provides base classes for implementing common service patterns, such as creating, updating, and destroying resources using ActiveRecord.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -65,9 +54,12 @@ class UserDashboard < Bleuprint::Dashboards::Base
 
   SHOW_PAGE_ATTRIBUTES = %i[name email age registered_on].freeze
 
-  def self.actions_json(*_args)
-    [{ label: "Edit", url: "/edit" }]
-  end
+  ACTIONS = {
+    action_edit: Bleuprint::Field::Action::Link.with_options(
+      label: "Edit",
+      value: ->(_field, resource) { "/resources/#{resource&.id || 'RESOURCE_ID'}/edit" }
+    )
+  }
 end
 ```
 
