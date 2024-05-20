@@ -43,6 +43,7 @@ module Bleuprint
 
       def filters
         return [] unless self.class.const_defined?(:COLLECTION_FILTERS)
+        return [] if self.class::COLLECTION_FILTERS.blank?
 
         self.class::COLLECTION_FILTERS.filter_map do |field_name, _filter_proc|
           field = find_field(field_name)
