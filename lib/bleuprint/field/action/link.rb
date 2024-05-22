@@ -15,7 +15,9 @@ module Bleuprint
           {
             name: label,
             type: type.to_s.gsub("action_", "").to_sym,
-            url_path: value
+            url_path: value,
+            condition_key: options[:condition_key],
+            condition_value: options[:condition_value]
           }
         end
       end
