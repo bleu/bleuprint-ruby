@@ -118,10 +118,15 @@ module Bleuprint
         end
 
         scope.map do |resource|
-          self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|
+          serialized_resource = self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|
             field = field_class.new(field_name, self.class, resource)
             [field.name.to_sym, field.value]
-          end.merge(actions: actions_json(resource:)).with_indifferent_access
+          end
+
+          actions = actions_json(resource: resource)
+          serialized_resource[:actions] = actions if actions.is_a?(Array) && actions.length > 0
+
+          serialized_resource.with_indifferent_access
         end
       end
 
