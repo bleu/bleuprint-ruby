@@ -123,8 +123,8 @@ module Bleuprint
             [field.name.to_sym, field.value]
           end
 
-          actions = actions_json(resource: resource)
-          serialized_resource[:actions] = actions if actions.is_a?(Array) && actions.length > 0
+          actions = actions_json(resource:)
+          serialized_resource[:actions] = actions if actions.is_a?(Array) && !actions.empty?
 
           serialized_resource.with_indifferent_access
         end

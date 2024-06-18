@@ -108,24 +108,42 @@ RSpec.describe Bleuprint::Dashboards::Base do
     end
 
     describe "#actions_json" do
-      it "generates action links and forms with dynamic URLs" do
-        actions = dashboard.actions_json(resource:)
-        expect(actions).to eq(
-          [
-            {
-              name: "Edit",
-              url_path: "/resources/1/edit",
-              type: :link
-            },
-            {
-              name: "Delete",
-              url_path: "/resources/1/delete",
-              type: :form,
-              method: :delete,
-              trigger_confirmation: true
-            }
-          ]
-        )
+      context "when actions are defined" do
+        it "generates action links and forms with dynamic URLs" do
+          actions = dashboard.actions_json(resource:)
+          expect(actions).to eq(
+            [
+              {
+                name: "Edit",
+                url_path: "/resources/1/edit",
+                type: :link,
+                condition_key: nil,
+                condition_value: nil
+              },
+              {
+                name: "Delete",
+                url_path: "/resources/1/delete",
+                type: :form,
+                method: :delete,
+                trigger_confirmation: true,
+                condition_key: nil,
+                condition_value: nil
+              }
+            ]
+          )
+        end
+      end
+
+      context "when no actions are defined" do
+        it "does not send actions if no actions" do
+          # Save original ACTIONS and set it to an empty hash
+          stub_const("TestDashboard::ACTIONS", {})
+
+          new_dashboard = TestDashboard.new(pagination, sorting, filters)
+          actions = new_dashboard.actions_json(resource: nil)
+
+          expect(actions).to eq([])
+        end
       end
     end
 
@@ -174,14 +192,18 @@ RSpec.describe Bleuprint::Dashboards::Base do
                   {
                     name: "Edit",
                     url_path: "/resources/1/edit",
-                    type: :link
+                    type: :link,
+                    condition_key: nil,
+                    condition_value: nil
                   },
                   {
                     name: "Delete",
                     url_path: "/resources/1/delete",
                     type: :form,
                     method: :delete,
-                    trigger_confirmation: true
+                    trigger_confirmation: true,
+                    condition_key: nil,
+                    condition_value: nil
                   }
                 ]
               }
