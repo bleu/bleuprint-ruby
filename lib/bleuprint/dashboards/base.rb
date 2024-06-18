@@ -112,10 +112,8 @@ module Bleuprint
         self.class.resource_class
       end
 
-      def apply_field_serialization(scope)
-        unless self.class.const_defined?(:ATTRIBUTE_TYPES) && self.class.const_defined?(:COLLECTION_ATTRIBUTES)
-          return {}
-        end
+      def apply_field_serialization(scope) # rubocop:disable Metrics/AbcSize
+        return {} unless self.class.const_defined?(:ATTRIBUTE_TYPES) && self.class.const_defined?(:COLLECTION_ATTRIBUTES)
 
         scope.map do |resource|
           serialized_resource = self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|

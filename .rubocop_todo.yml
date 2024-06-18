@@ -28,3 +28,9 @@ Naming/MethodParameterName:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/lib/dashboards/base_spec.rb'
+
+Metrics/ClassLength:
+  Max: 170
+
+Layout/LineLength:
+  Max: 140
