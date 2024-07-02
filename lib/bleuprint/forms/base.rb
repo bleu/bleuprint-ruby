@@ -30,7 +30,35 @@ module Bleuprint
       private
 
       def default_values
-        resource ? resource.as_json : {}
+        return {} unless resource
+
+        resource.as_json.merge(default_values_to_many_associations)
+      end
+
+      def default_values_to_many_associations
+        has_many_associations = dashboard::ATTRIBUTE_TYPES.select do |key, type_class|
+          if type_class.respond_to?(:name)
+            type_class.name == "Bleuprint::Field::HasMany"
+          elsif type_class.respond_to?(:deferred_class)
+            type_class.deferred_class.name == "Bleuprint::Field::HasMany"
+          else
+            false
+          end
+        end
+
+        # Map through the selected associations and build a hash of attribute keys and their values
+        has_many_defaults = has_many_associations.map do |attribute, type_class|
+          instance = type_class.new(attribute, dashboard, resource)
+          attribute_key = instance.attribute_key
+
+          if resource.respond_to?(attribute_key)
+            {attribute_key => resource.send(attribute_key)}
+          else
+            {attribute_key => nil}
+          end
+        end
+
+        has_many_defaults.reduce({}, :merge) || {}
       end
 
       def fields
@@ -64,7 +92,7 @@ module Bleuprint
       end
 
       def options_for_field(field)
-        field.respond_to?(:selectable_options) ? { options: field.selectable_options } : {}
+        field.respond_to?(:selectable_options) ? {options: field.selectable_options} : {}
       end
 
       def validation_for_field(field, validations)
@@ -72,13 +100,13 @@ module Bleuprint
       end
 
       def downloadable_options_for_field(field)
-        field.respond_to?(:allow_download?) ? { download: field.allow_download? } : {}
+        field.respond_to?(:allow_download?) ? {download: field.allow_download?} : {}
       end
 
       def conditional_fields(array)
         conditions = array.map do |condition|
           key = condition.keys.first
-          { name: key, value: condition[key] }
+          {name: key, value: condition[key]}
         end
 
         yield.map do |field|

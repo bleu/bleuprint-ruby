@@ -18,5 +18,6 @@ module Bleuprint
     autoload :Select
     autoload :Text
     autoload :Wysiwyg
+    autoload :HasMany
   end
 end
