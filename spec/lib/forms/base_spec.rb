@@ -13,13 +13,19 @@ RSpec.describe Bleuprint::Forms::Base, type: :model do
   end
 
   describe "#call!" do
+    let(:resource) { double("Resource", as_json: {}) }
+    let(:dashboard) { double("Dashboard") }
+    let(:attribute_types) { {} }
+    let(:form_attributes) { [] }
+    let(:form) { described_class.new(resource, dashboard) }
+
+    before do
+      allow(dashboard).to receive(:const_get).with(:ATTRIBUTE_TYPES).and_return(attribute_types)
+      allow(dashboard).to receive(:const_get).with(:FORM_ATTRIBUTES).and_return(form_attributes)
+      allow(form).to receive_messages(fields: [], dashboard_attribute_types: attribute_types)
+    end
+
     it "returns fields and default values" do
-      resource = double("Resource", as_json: {})
-      dashboard = double("Dashboard")
-      form = described_class.new(resource, dashboard)
-
-      allow(form).to receive(:fields).and_return([])
-
       expect(form.call!).to include(:fields, :defaultValues)
     end
   end

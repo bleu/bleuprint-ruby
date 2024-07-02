@@ -27,7 +27,7 @@ module Bleuprint
 
       def associated_class
         if option_given?(:class_name)
-          associated_class_name.constantize
+          associated_class_name.constantize # rubocop:disable Sorbet/ConstantsFromStrings
         else
           self.class.associated_class(resource.class, attribute)
         end
