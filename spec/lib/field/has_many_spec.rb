@@ -8,7 +8,7 @@ RSpec.describe Bleuprint::Field::HasMany do
   let(:resource) do
     instance_double("Resource", comment_ids: associated_resources_ids, comments: associated_resources, class: resource_class)
   end
-  let(:associated_resources_ids) { [1, 2] }
+  let(:associated_resources_ids) { associated_resources.map(&:id) }
   let(:associated_resources) do
     [double("AssociatedResource", id: 1, title: "Comment 1"), double("AssociatedResource", id: 2, title: "Comment 2")]
   end
