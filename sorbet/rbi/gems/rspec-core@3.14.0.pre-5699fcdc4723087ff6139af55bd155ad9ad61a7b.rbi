@@ -2736,7 +2736,7 @@ class RSpec::Core::ConfigurationOptions
   # source://rspec-core//lib/rspec/core/configuration_options.rb#146
   def custom_options; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#188
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#190
   def custom_options_file; end
 
   # source://rspec-core//lib/rspec/core/configuration_options.rb#133
@@ -2753,10 +2753,10 @@ class RSpec::Core::ConfigurationOptions
   # source://rspec-core//lib/rspec/core/configuration_options.rb#158
   def global_options; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#200
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#202
   def global_options_file; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#211
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#213
   def home_options_file_path; end
 
   # source://rspec-core//lib/rspec/core/configuration_options.rb#121
@@ -2765,7 +2765,7 @@ class RSpec::Core::ConfigurationOptions
   # source://rspec-core//lib/rspec/core/configuration_options.rb#150
   def local_options; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#196
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#198
   def local_options_file; end
 
   # source://rspec-core//lib/rspec/core/configuration_options.rb#180
@@ -2789,16 +2789,16 @@ class RSpec::Core::ConfigurationOptions
   # source://rspec-core//lib/rspec/core/configuration_options.rb#154
   def project_options; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#192
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#194
   def project_options_file; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#227
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#229
   def resolve_xdg_config_home; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#204
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#206
   def xdg_options_file_if_exists; end
 
-  # source://rspec-core//lib/rspec/core/configuration_options.rb#220
+  # source://rspec-core//lib/rspec/core/configuration_options.rb#222
   def xdg_options_file_path; end
 end
 
@@ -2906,8 +2906,9 @@ class RSpec::Core::DidYouMean
   def initialize(relative_file_name); end
 
   # return a hint if API for ::DidYouMean::SpellChecker not supported
+  # :nocov:
   #
-  # source://rspec-core//lib/rspec/core/did_you_mean.rb#14
+  # source://rspec-core//lib/rspec/core/did_you_mean.rb#15
   def call; end
 
   # Returns the value of attribute relative_file_name.
@@ -2917,13 +2918,15 @@ class RSpec::Core::DidYouMean
 
   private
 
-  # source://rspec-core//lib/rspec/core/did_you_mean.rb#30
+  # :nocov:
+  #
+  # source://rspec-core//lib/rspec/core/did_you_mean.rb#35
   def formats(probables); end
 
-  # source://rspec-core//lib/rspec/core/did_you_mean.rb#40
+  # source://rspec-core//lib/rspec/core/did_you_mean.rb#45
   def red_font(mytext); end
 
-  # source://rspec-core//lib/rspec/core/did_you_mean.rb#35
+  # source://rspec-core//lib/rspec/core/did_you_mean.rb#40
   def top_and_tail(rspec_format); end
 end
 
@@ -5399,7 +5402,7 @@ class RSpec::Core::Formatters::ExceptionPresenter
 
   private
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#224
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#226
   def add_shared_group_lines(lines, colorizer); end
 
   # Returns the value of attribute backtrace_formatter.
@@ -5412,9 +5415,9 @@ class RSpec::Core::Formatters::ExceptionPresenter
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#12
   def detail_formatter; end
 
-  # for 1.8.7
+  # :nocov:
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#282
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#286
   def encoded_description(description); end
 
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#120
@@ -5425,15 +5428,17 @@ class RSpec::Core::Formatters::ExceptionPresenter
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#116
   def encoding_of(string); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#292
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#298
   def exception_backtrace; end
 
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#150
   def exception_class_name(exception = T.unsafe(nil)); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#202
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#204
   def exception_lines; end
 
+  # :nocov:
+  #
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#184
   def exception_message_string(exception); end
 
@@ -5442,7 +5447,7 @@ class RSpec::Core::Formatters::ExceptionPresenter
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#12
   def extra_detail_formatter; end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#213
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#215
   def extra_failure_lines; end
 
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#156
@@ -5454,10 +5459,10 @@ class RSpec::Core::Formatters::ExceptionPresenter
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#104
   def final_exception(exception, previous = T.unsafe(nil)); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#258
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#262
   def find_failed_line; end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#273
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#277
   def formatted_message_and_backtrace(colorizer); end
 
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#134
@@ -5468,7 +5473,7 @@ class RSpec::Core::Formatters::ExceptionPresenter
   # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#12
   def message_color; end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#234
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#236
   def read_failed_lines; end
 end
 
@@ -5479,49 +5484,49 @@ end
 #
 # @private
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#301
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#307
 class RSpec::Core::Formatters::ExceptionPresenter::Factory
   # @return [Factory] a new instance of Factory
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#308
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#314
   def initialize(example); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#302
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#308
   def build; end
 
   private
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#363
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#369
   def multiple_exception_summarizer(exception, prior_detail_formatter, color); end
 
   # @return [Boolean]
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#359
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#365
   def multiple_exceptions_error?(exception); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#318
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#324
   def options; end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#322
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#328
   def pending_options; end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#384
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#390
   def sub_failure_list_formatter(exception, message_color); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#343
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#349
   def with_multiple_error_options_as_needed(exception, options); end
 end
 
 # @private
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#417
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#423
 class RSpec::Core::Formatters::ExceptionPresenter::Factory::CommonBacktraceTruncater
   # @return [CommonBacktraceTruncater] a new instance of CommonBacktraceTruncater
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#418
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#424
   def initialize(parent); end
 
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#422
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#428
   def with_truncated_backtrace(child); end
 end
 
@@ -5530,17 +5535,17 @@ end
 #
 # @private
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#410
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#416
 module RSpec::Core::Formatters::ExceptionPresenter::Factory::EmptyBacktraceFormatter
   class << self
-    # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#411
+    # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#417
     def format_backtrace(*_arg0); end
   end
 end
 
 # @private
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#442
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#448
 RSpec::Core::Formatters::ExceptionPresenter::PENDING_DETAIL_FORMATTER = T.let(T.unsafe(nil), Proc)
 
 # @private
@@ -6230,9 +6235,6 @@ module RSpec::Core::HashImitatable
   def any?(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def assert_valid_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
   def assoc(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
@@ -6282,24 +6284,6 @@ module RSpec::Core::HashImitatable
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def deep_merge?(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_stringify_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_stringify_keys!(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_symbolize_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_symbolize_keys!(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_transform_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def deep_transform_keys!(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def default(*args, &block); end
@@ -6372,9 +6356,6 @@ module RSpec::Core::HashImitatable
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def extract!(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def extractable_options?(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def fetch(*args, &block); end
@@ -6548,19 +6529,7 @@ module RSpec::Core::HashImitatable
   def store(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def stringify_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def stringify_keys!(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
   def sum(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def symbolize_keys(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def symbolize_keys!(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def take(*args, &block); end
@@ -6579,12 +6548,6 @@ module RSpec::Core::HashImitatable
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def to_hash(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def to_options(*args, &block); end
-
-  # source://rspec-core//lib/rspec/core/metadata.rb#367
-  def to_options!(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/metadata.rb#367
   def to_proc(*args, &block); end
@@ -8231,57 +8194,57 @@ end
 # individual spec has multiple exceptions, such as one in the `it` block
 # and one in an `after` block.
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#452
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#458
 class RSpec::Core::MultipleExceptionError < ::StandardError
   include ::RSpec::Core::MultipleExceptionError::InterfaceTag
 
   # @param exceptions [Array<Exception>] The initial list of exceptions.
   # @return [MultipleExceptionError] a new instance of MultipleExceptionError
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#513
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#519
   def initialize(*exceptions); end
 
   # @return [nil] Provided only for interface compatibility with
   #   `RSpec::Expectations::MultipleExpectationsNotMetError`.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#510
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#516
   def aggregation_block_label; end
 
   # @return [Hash] Metadata used by RSpec for formatting purposes.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#506
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#512
   def aggregation_metadata; end
 
   # @return [Array<Exception>] The list of failures and other exceptions, combined.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#503
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#509
   def all_exceptions; end
 
   # return [String] A description of the failure/error counts.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#538
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#544
   def exception_count_description; end
 
   # @return [Array<Exception>] The list of failures.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#497
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#503
   def failures; end
 
   # @note RSpec does not actually use this -- instead it formats each exception
   #   individually.
   # @return [String] Combines all the exception messages into a single string.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#528
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#534
   def message; end
 
   # @return [Array<Exception>] The list of other errors.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#500
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#506
   def other_errors; end
 
   # @return [String] A summary of the failure, including the block label and a count of failures.
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#533
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#539
   def summary; end
 end
 
@@ -8292,14 +8255,14 @@ end
 #
 # @private
 #
-# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#458
+# source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#464
 module RSpec::Core::MultipleExceptionError::InterfaceTag
   # Appends the provided exception to the list.
   #
   # @param exception [Exception] Exception to append to the list.
   # @private
   #
-  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#462
+  # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#468
   def add(exception); end
 
   class << self
@@ -8309,7 +8272,7 @@ module RSpec::Core::MultipleExceptionError::InterfaceTag
     #
     # @private
     #
-    # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#488
+    # source://rspec-core//lib/rspec/core/formatters/exception_presenter.rb#494
     def for(ex); end
   end
 end
@@ -9408,6 +9371,15 @@ class RSpec::Core::OutputWrapper
 
   # source://rspec-core//lib/rspec/core/output_wrapper.rb#23
   def noecho(*args, &block); end
+
+  # source://rspec-core//lib/rspec/core/output_wrapper.rb#23
+  def nonblock(*args, &block); end
+
+  # source://rspec-core//lib/rspec/core/output_wrapper.rb#23
+  def nonblock=(*args, &block); end
+
+  # source://rspec-core//lib/rspec/core/output_wrapper.rb#23
+  def nonblock?(*args, &block); end
 
   # source://rspec-core//lib/rspec/core/output_wrapper.rb#23
   def nread(*args, &block); end

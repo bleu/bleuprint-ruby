@@ -7,13 +7,13 @@
 # source://rbi//lib/rbi/loc.rb#4
 module RBI; end
 
-# source://rbi//lib/rbi/model.rb#1041
+# source://rbi//lib/rbi/model.rb#968
 class RBI::Arg < ::RBI::Node
-  # source://rbi//lib/rbi/model.rb#1053
+  # source://rbi//lib/rbi/model.rb#980
   sig { params(value: ::String, loc: T.nilable(::RBI::Loc)).void }
   def initialize(value, loc: T.unsafe(nil)); end
 
-  # source://rbi//lib/rbi/model.rb#1059
+  # source://rbi//lib/rbi/model.rb#986
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -21,11 +21,11 @@ class RBI::Arg < ::RBI::Node
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1064
+  # source://rbi//lib/rbi/model.rb#991
   sig { returns(::String) }
   def to_s; end
 
-  # source://rbi//lib/rbi/model.rb#1045
+  # source://rbi//lib/rbi/model.rb#972
   sig { returns(::String) }
   def value; end
 end
@@ -197,9 +197,9 @@ class RBI::BlankLine < ::RBI::Comment
   def accept_printer(v); end
 end
 
-# source://rbi//lib/rbi/model.rb#814
+# source://rbi//lib/rbi/model.rb#741
 class RBI::BlockParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#825
+  # source://rbi//lib/rbi/model.rb#752
   sig do
     params(
       name: ::String,
@@ -210,7 +210,7 @@ class RBI::BlockParam < ::RBI::Param
   end
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#836
+  # source://rbi//lib/rbi/model.rb#763
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -222,7 +222,7 @@ class RBI::BlockParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#831
+  # source://rbi//lib/rbi/model.rb#758
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -379,11 +379,11 @@ class RBI::Const < ::RBI::NodeWithComments
   def value; end
 end
 
-# source://rbi//lib/rbi/model.rb#889
+# source://rbi//lib/rbi/model.rb#816
 class RBI::Extend < ::RBI::Mixin
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#901
+  # source://rbi//lib/rbi/model.rb#828
   sig do
     params(
       name: ::String,
@@ -403,7 +403,7 @@ class RBI::Extend < ::RBI::Mixin
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#907
+  # source://rbi//lib/rbi/model.rb#834
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -568,11 +568,11 @@ end
 
 # Sorbet's misc.
 #
-# source://rbi//lib/rbi/model.rb#1372
+# source://rbi//lib/rbi/model.rb#1294
 class RBI::Helper < ::RBI::NodeWithComments
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1386
+  # source://rbi//lib/rbi/model.rb#1308
   sig do
     params(
       name: ::String,
@@ -595,20 +595,20 @@ class RBI::Helper < ::RBI::NodeWithComments
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1376
+  # source://rbi//lib/rbi/model.rb#1298
   sig { returns(::String) }
   def name; end
 
-  # source://rbi//lib/rbi/model.rb#1393
+  # source://rbi//lib/rbi/model.rb#1315
   sig { override.returns(::String) }
   def to_s; end
 end
 
-# source://rbi//lib/rbi/model.rb#866
+# source://rbi//lib/rbi/model.rb#793
 class RBI::Include < ::RBI::Mixin
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#878
+  # source://rbi//lib/rbi/model.rb#805
   sig do
     params(
       name: ::String,
@@ -628,7 +628,7 @@ class RBI::Include < ::RBI::Mixin
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#884
+  # source://rbi//lib/rbi/model.rb#811
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -668,7 +668,7 @@ class RBI::Index < ::RBI::Visitor
   end
 end
 
-# A Node that can be referred to by a unique ID inside an index
+# A Node that can be refered to by a unique ID inside an index
 #
 # @abstract Subclasses must implement the `abstract` methods below.
 #
@@ -688,13 +688,13 @@ module RBI::Indexable
   def index_ids; end
 end
 
-# source://rbi//lib/rbi/model.rb#1069
+# source://rbi//lib/rbi/model.rb#996
 class RBI::KwArg < ::RBI::Arg
-  # source://rbi//lib/rbi/model.rb#1082
+  # source://rbi//lib/rbi/model.rb#1009
   sig { params(keyword: ::String, value: ::String, loc: T.nilable(::RBI::Loc)).void }
   def initialize(keyword, value, loc: T.unsafe(nil)); end
 
-  # source://rbi//lib/rbi/model.rb#1088
+  # source://rbi//lib/rbi/model.rb#1015
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -702,18 +702,18 @@ class RBI::KwArg < ::RBI::Arg
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1073
+  # source://rbi//lib/rbi/model.rb#1000
   sig { returns(::String) }
   def keyword; end
 
-  # source://rbi//lib/rbi/model.rb#1093
+  # source://rbi//lib/rbi/model.rb#1020
   sig { returns(::String) }
   def to_s; end
 end
 
-# source://rbi//lib/rbi/model.rb#755
+# source://rbi//lib/rbi/model.rb#682
 class RBI::KwOptParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#770
+  # source://rbi//lib/rbi/model.rb#697
   sig do
     params(
       name: ::String,
@@ -725,7 +725,7 @@ class RBI::KwOptParam < ::RBI::Param
   end
   def initialize(name, value, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#782
+  # source://rbi//lib/rbi/model.rb#709
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -737,18 +737,18 @@ class RBI::KwOptParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#777
+  # source://rbi//lib/rbi/model.rb#704
   sig { override.returns(::String) }
   def to_s; end
 
-  # source://rbi//lib/rbi/model.rb#759
+  # source://rbi//lib/rbi/model.rb#686
   sig { returns(::String) }
   def value; end
 end
 
-# source://rbi//lib/rbi/model.rb#728
+# source://rbi//lib/rbi/model.rb#655
 class RBI::KwParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#739
+  # source://rbi//lib/rbi/model.rb#666
   sig do
     params(
       name: ::String,
@@ -759,7 +759,7 @@ class RBI::KwParam < ::RBI::Param
   end
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#750
+  # source://rbi//lib/rbi/model.rb#677
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -771,14 +771,14 @@ class RBI::KwParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#745
+  # source://rbi//lib/rbi/model.rb#672
   sig { override.returns(::String) }
   def to_s; end
 end
 
-# source://rbi//lib/rbi/model.rb#787
+# source://rbi//lib/rbi/model.rb#714
 class RBI::KwRestParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#798
+  # source://rbi//lib/rbi/model.rb#725
   sig do
     params(
       name: ::String,
@@ -789,7 +789,7 @@ class RBI::KwRestParam < ::RBI::Param
   end
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#809
+  # source://rbi//lib/rbi/model.rb#736
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -801,7 +801,7 @@ class RBI::KwRestParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#804
+  # source://rbi//lib/rbi/model.rb#731
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -907,55 +907,11 @@ class RBI::Method < ::RBI::NodeWithComments
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#568
-  sig { params(name: ::String).void }
-  def add_block_param(name); end
-
-  # source://rbi//lib/rbi/model.rb#558
-  sig { params(name: ::String, default_value: ::String).void }
-  def add_kw_opt_param(name, default_value); end
-
-  # source://rbi//lib/rbi/model.rb#553
-  sig { params(name: ::String).void }
-  def add_kw_param(name); end
-
-  # source://rbi//lib/rbi/model.rb#563
-  sig { params(name: ::String).void }
-  def add_kw_rest_param(name); end
-
-  # source://rbi//lib/rbi/model.rb#543
-  sig { params(name: ::String, default_value: ::String).void }
-  def add_opt_param(name, default_value); end
-
-  # source://rbi//lib/rbi/model.rb#538
-  sig { params(name: ::String).void }
-  def add_param(name); end
-
-  # source://rbi//lib/rbi/model.rb#548
-  sig { params(name: ::String).void }
-  def add_rest_param(name); end
-
-  # source://rbi//lib/rbi/model.rb#585
-  sig do
-    params(
-      params: T::Array[::RBI::SigParam],
-      return_type: T.nilable(::String),
-      is_abstract: T::Boolean,
-      is_override: T::Boolean,
-      is_overridable: T::Boolean,
-      is_final: T::Boolean,
-      type_params: T::Array[::String],
-      checked: T.nilable(::Symbol),
-      block: T.proc.params(node: ::RBI::Sig).void
-    ).void
-  end
-  def add_sig(params: T.unsafe(nil), return_type: T.unsafe(nil), is_abstract: T.unsafe(nil), is_override: T.unsafe(nil), is_overridable: T.unsafe(nil), is_final: T.unsafe(nil), type_params: T.unsafe(nil), checked: T.unsafe(nil), &block); end
-
   # source://rbi//lib/rbi/rewriters/merge_trees.rb#461
   sig { override.params(other: ::RBI::Node).returns(T::Boolean) }
   def compatible_with?(other); end
 
-  # source://rbi//lib/rbi/model.rb#611
+  # source://rbi//lib/rbi/model.rb#538
   sig { returns(::String) }
   def fully_qualified_name; end
 
@@ -1006,7 +962,7 @@ class RBI::Method < ::RBI::NodeWithComments
   # source://rbi//lib/rbi/model.rb#499
   def sigs=(_arg0); end
 
-  # source://rbi//lib/rbi/model.rb#620
+  # source://rbi//lib/rbi/model.rb#547
   sig { override.returns(::String) }
   def to_s; end
 
@@ -1020,11 +976,11 @@ class RBI::Method < ::RBI::NodeWithComments
   def visibility=(_arg0); end
 end
 
-# source://rbi//lib/rbi/model.rb#1433
+# source://rbi//lib/rbi/model.rb#1355
 class RBI::MixesInClassMethods < ::RBI::Mixin
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1445
+  # source://rbi//lib/rbi/model.rb#1367
   sig do
     params(
       name: ::String,
@@ -1044,7 +1000,7 @@ class RBI::MixesInClassMethods < ::RBI::Mixin
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1451
+  # source://rbi//lib/rbi/model.rb#1373
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -1053,11 +1009,11 @@ end
 #
 # @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 #
-# source://rbi//lib/rbi/model.rb#843
+# source://rbi//lib/rbi/model.rb#770
 class RBI::Mixin < ::RBI::NodeWithComments
   abstract!
 
-  # source://rbi//lib/rbi/model.rb#860
+  # source://rbi//lib/rbi/model.rb#787
   sig do
     params(
       name: ::String,
@@ -1076,7 +1032,7 @@ class RBI::Mixin < ::RBI::NodeWithComments
   sig { override.params(other: ::RBI::Node).returns(T::Boolean) }
   def compatible_with?(other); end
 
-  # source://rbi//lib/rbi/model.rb#850
+  # source://rbi//lib/rbi/model.rb#777
   sig { returns(T::Array[::String]) }
   def names; end
 end
@@ -1246,9 +1202,9 @@ class RBI::NodeWithComments < ::RBI::Node
   def version_requirements; end
 end
 
-# source://rbi//lib/rbi/model.rb#674
+# source://rbi//lib/rbi/model.rb#601
 class RBI::OptParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#689
+  # source://rbi//lib/rbi/model.rb#616
   sig do
     params(
       name: ::String,
@@ -1260,7 +1216,7 @@ class RBI::OptParam < ::RBI::Param
   end
   def initialize(name, value, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#696
+  # source://rbi//lib/rbi/model.rb#623
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -1272,18 +1228,18 @@ class RBI::OptParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#678
+  # source://rbi//lib/rbi/model.rb#605
   sig { returns(::String) }
   def value; end
 end
 
 # @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 #
-# source://rbi//lib/rbi/model.rb#625
+# source://rbi//lib/rbi/model.rb#552
 class RBI::Param < ::RBI::NodeWithComments
   abstract!
 
-  # source://rbi//lib/rbi/model.rb#641
+  # source://rbi//lib/rbi/model.rb#568
   sig { params(name: ::String, loc: T.nilable(::RBI::Loc), comments: T::Array[::RBI::Comment]).void }
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil)); end
 
@@ -1295,7 +1251,7 @@ class RBI::Param < ::RBI::NodeWithComments
   sig { returns(T::Array[::String]) }
   def comments_lines; end
 
-  # source://rbi//lib/rbi/model.rb#632
+  # source://rbi//lib/rbi/model.rb#559
   sig { returns(::String) }
   def name; end
 
@@ -1303,7 +1259,7 @@ class RBI::Param < ::RBI::NodeWithComments
   sig { params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#647
+  # source://rbi//lib/rbi/model.rb#574
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -1610,9 +1566,9 @@ class RBI::Printer < ::RBI::Visitor
   def visit_file(file); end
 end
 
-# source://rbi//lib/rbi/model.rb#982
+# source://rbi//lib/rbi/model.rb#909
 class RBI::Private < ::RBI::Visibility
-  # source://rbi//lib/rbi/model.rb#992
+  # source://rbi//lib/rbi/model.rb#919
   sig do
     params(
       loc: T.nilable(::RBI::Loc),
@@ -1623,9 +1579,9 @@ class RBI::Private < ::RBI::Visibility
   def initialize(loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 end
 
-# source://rbi//lib/rbi/model.rb#966
+# source://rbi//lib/rbi/model.rb#893
 class RBI::Protected < ::RBI::Visibility
-  # source://rbi//lib/rbi/model.rb#976
+  # source://rbi//lib/rbi/model.rb#903
   sig do
     params(
       loc: T.nilable(::RBI::Loc),
@@ -1636,9 +1592,9 @@ class RBI::Protected < ::RBI::Visibility
   def initialize(loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 end
 
-# source://rbi//lib/rbi/model.rb#950
+# source://rbi//lib/rbi/model.rb#877
 class RBI::Public < ::RBI::Visibility
-  # source://rbi//lib/rbi/model.rb#960
+  # source://rbi//lib/rbi/model.rb#887
   sig do
     params(
       loc: T.nilable(::RBI::Loc),
@@ -1649,9 +1605,9 @@ class RBI::Public < ::RBI::Visibility
   def initialize(loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 end
 
-# source://rbi//lib/rbi/model.rb#652
+# source://rbi//lib/rbi/model.rb#579
 class RBI::ReqParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#663
+  # source://rbi//lib/rbi/model.rb#590
   sig do
     params(
       name: ::String,
@@ -1662,16 +1618,16 @@ class RBI::ReqParam < ::RBI::Param
   end
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#669
+  # source://rbi//lib/rbi/model.rb#596
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 end
 
-# source://rbi//lib/rbi/model.rb#1456
+# source://rbi//lib/rbi/model.rb#1378
 class RBI::RequiresAncestor < ::RBI::NodeWithComments
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1469
+  # source://rbi//lib/rbi/model.rb#1391
   sig { params(name: ::String, loc: T.nilable(::RBI::Loc), comments: T::Array[::RBI::Comment]).void }
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil)); end
 
@@ -1683,18 +1639,18 @@ class RBI::RequiresAncestor < ::RBI::NodeWithComments
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1460
+  # source://rbi//lib/rbi/model.rb#1382
   sig { returns(::String) }
   def name; end
 
-  # source://rbi//lib/rbi/model.rb#1475
+  # source://rbi//lib/rbi/model.rb#1397
   sig { override.returns(::String) }
   def to_s; end
 end
 
-# source://rbi//lib/rbi/model.rb#701
+# source://rbi//lib/rbi/model.rb#628
 class RBI::RestParam < ::RBI::Param
-  # source://rbi//lib/rbi/model.rb#712
+  # source://rbi//lib/rbi/model.rb#639
   sig do
     params(
       name: ::String,
@@ -1705,7 +1661,7 @@ class RBI::RestParam < ::RBI::Param
   end
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#723
+  # source://rbi//lib/rbi/model.rb#650
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -1717,7 +1673,7 @@ class RBI::RestParam < ::RBI::Param
   sig { override.params(v: ::RBI::Printer, last: T::Boolean).void }
   def print_comment_leading_space(v, last:); end
 
-  # source://rbi//lib/rbi/model.rb#718
+  # source://rbi//lib/rbi/model.rb#645
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -1944,7 +1900,7 @@ class RBI::Rewriters::Merge::Conflict < ::T::Struct
   def to_s; end
 
   class << self
-    # source://sorbet-runtime/0.5.11361/lib/types/struct.rb#13
+    # source://sorbet-runtime/0.5.11284/lib/types/struct.rb#13
     def inherited(s); end
   end
 end
@@ -2161,7 +2117,7 @@ class RBI::Rewriters::RemoveKnownDefinitions::Operation < ::T::Struct
   def to_s; end
 
   class << self
-    # source://sorbet-runtime/0.5.11361/lib/types/struct.rb#13
+    # source://sorbet-runtime/0.5.11284/lib/types/struct.rb#13
     def inherited(s); end
   end
 end
@@ -2275,11 +2231,11 @@ end
 
 # Sends
 #
-# source://rbi//lib/rbi/model.rb#1000
+# source://rbi//lib/rbi/model.rb#927
 class RBI::Send < ::RBI::NodeWithComments
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1018
+  # source://rbi//lib/rbi/model.rb#945
   sig do
     params(
       method: ::String,
@@ -2291,11 +2247,11 @@ class RBI::Send < ::RBI::NodeWithComments
   end
   def initialize(method, args = T.unsafe(nil), loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#1026
+  # source://rbi//lib/rbi/model.rb#953
   sig { params(arg: ::RBI::Arg).void }
   def <<(arg); end
 
-  # source://rbi//lib/rbi/model.rb#1031
+  # source://rbi//lib/rbi/model.rb#958
   sig { params(other: T.nilable(::Object)).returns(T::Boolean) }
   def ==(other); end
 
@@ -2303,7 +2259,7 @@ class RBI::Send < ::RBI::NodeWithComments
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1007
+  # source://rbi//lib/rbi/model.rb#934
   sig { returns(T::Array[::RBI::Arg]) }
   def args; end
 
@@ -2315,20 +2271,20 @@ class RBI::Send < ::RBI::NodeWithComments
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1004
+  # source://rbi//lib/rbi/model.rb#931
   sig { returns(::String) }
   def method; end
 
-  # source://rbi//lib/rbi/model.rb#1036
+  # source://rbi//lib/rbi/model.rb#963
   sig { returns(::String) }
   def to_s; end
 end
 
 # Sorbet's sigs
 #
-# source://rbi//lib/rbi/model.rb#1100
+# source://rbi//lib/rbi/model.rb#1027
 class RBI::Sig < ::RBI::Node
-  # source://rbi//lib/rbi/model.rb#1132
+  # source://rbi//lib/rbi/model.rb#1059
   sig do
     params(
       params: T::Array[::RBI::SigParam],
@@ -2345,11 +2301,11 @@ class RBI::Sig < ::RBI::Node
   end
   def initialize(params: T.unsafe(nil), return_type: T.unsafe(nil), is_abstract: T.unsafe(nil), is_override: T.unsafe(nil), is_overridable: T.unsafe(nil), is_final: T.unsafe(nil), type_params: T.unsafe(nil), checked: T.unsafe(nil), loc: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#1157
+  # source://rbi//lib/rbi/model.rb#1084
   sig { params(param: ::RBI::SigParam).void }
   def <<(param); end
 
-  # source://rbi//lib/rbi/model.rb#1167
+  # source://rbi//lib/rbi/model.rb#1089
   sig { params(other: ::Object).returns(T::Boolean) }
   def ==(other); end
 
@@ -2357,80 +2313,76 @@ class RBI::Sig < ::RBI::Node
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1162
-  sig { params(name: ::String, type: ::String).void }
-  def add_param(name, type); end
-
-  # source://rbi//lib/rbi/model.rb#1116
+  # source://rbi//lib/rbi/model.rb#1043
   sig { returns(T.nilable(::Symbol)) }
   def checked; end
 
   # @return [Symbol, nil]
   #
-  # source://rbi//lib/rbi/model.rb#1116
+  # source://rbi//lib/rbi/model.rb#1043
   def checked=(_arg0); end
 
   # source://rbi//lib/rbi/printer.rb#656
   sig { returns(T::Boolean) }
   def inline_params?; end
 
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   sig { returns(T::Boolean) }
   def is_abstract; end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_abstract=(_arg0); end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_final; end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_final=(_arg0); end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_overridable; end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_overridable=(_arg0); end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_override; end
 
   # @return [Boolean]
   #
-  # source://rbi//lib/rbi/model.rb#1110
+  # source://rbi//lib/rbi/model.rb#1037
   def is_override=(_arg0); end
 
   # source://rbi//lib/rbi/printer.rb#651
   sig { override.returns(T::Boolean) }
   def oneline?; end
 
-  # source://rbi//lib/rbi/model.rb#1104
+  # source://rbi//lib/rbi/model.rb#1031
   sig { returns(T::Array[::RBI::SigParam]) }
   def params; end
 
-  # source://rbi//lib/rbi/model.rb#1107
+  # source://rbi//lib/rbi/model.rb#1034
   sig { returns(T.nilable(::String)) }
   def return_type; end
 
   # @return [String, nil]
   #
-  # source://rbi//lib/rbi/model.rb#1107
+  # source://rbi//lib/rbi/model.rb#1034
   def return_type=(_arg0); end
 
-  # source://rbi//lib/rbi/model.rb#1113
+  # source://rbi//lib/rbi/model.rb#1040
   sig { returns(T::Array[::String]) }
   def type_params; end
 
@@ -2449,9 +2401,9 @@ class RBI::Sig < ::RBI::Node
   def sig_modifiers; end
 end
 
-# source://rbi//lib/rbi/model.rb#1176
+# source://rbi//lib/rbi/model.rb#1098
 class RBI::SigParam < ::RBI::NodeWithComments
-  # source://rbi//lib/rbi/model.rb#1191
+  # source://rbi//lib/rbi/model.rb#1113
   sig do
     params(
       name: ::String,
@@ -2463,7 +2415,7 @@ class RBI::SigParam < ::RBI::NodeWithComments
   end
   def initialize(name, type, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#1199
+  # source://rbi//lib/rbi/model.rb#1121
   sig { params(other: ::Object).returns(T::Boolean) }
   def ==(other); end
 
@@ -2475,7 +2427,7 @@ class RBI::SigParam < ::RBI::NodeWithComments
   sig { returns(T::Array[::String]) }
   def comments_lines; end
 
-  # source://rbi//lib/rbi/model.rb#1180
+  # source://rbi//lib/rbi/model.rb#1102
   sig { returns(::String) }
   def name; end
 
@@ -2485,7 +2437,7 @@ class RBI::SigParam < ::RBI::NodeWithComments
 
   # @return [String]
   #
-  # source://rbi//lib/rbi/model.rb#1180
+  # source://rbi//lib/rbi/model.rb#1102
   def type; end
 end
 
@@ -2567,9 +2519,9 @@ end
 
 # Sorbet's T::Enum
 #
-# source://rbi//lib/rbi/model.rb#1317
+# source://rbi//lib/rbi/model.rb#1239
 class RBI::TEnum < ::RBI::Class
-  # source://rbi//lib/rbi/model.rb#1328
+  # source://rbi//lib/rbi/model.rb#1250
   sig do
     params(
       name: ::String,
@@ -2581,11 +2533,11 @@ class RBI::TEnum < ::RBI::Class
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 end
 
-# source://rbi//lib/rbi/model.rb#1334
+# source://rbi//lib/rbi/model.rb#1256
 class RBI::TEnumBlock < ::RBI::NodeWithComments
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1348
+  # source://rbi//lib/rbi/model.rb#1270
   sig do
     params(
       names: T::Array[::String],
@@ -2596,7 +2548,7 @@ class RBI::TEnumBlock < ::RBI::NodeWithComments
   end
   def initialize(names = T.unsafe(nil), loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 
-  # source://rbi//lib/rbi/model.rb#1360
+  # source://rbi//lib/rbi/model.rb#1282
   sig { params(name: ::String).void }
   def <<(name); end
 
@@ -2604,7 +2556,7 @@ class RBI::TEnumBlock < ::RBI::NodeWithComments
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1355
+  # source://rbi//lib/rbi/model.rb#1277
   sig { returns(T::Boolean) }
   def empty?; end
 
@@ -2616,20 +2568,20 @@ class RBI::TEnumBlock < ::RBI::NodeWithComments
   sig { override.params(other: ::RBI::Node).void }
   def merge_with(other); end
 
-  # source://rbi//lib/rbi/model.rb#1338
+  # source://rbi//lib/rbi/model.rb#1260
   sig { returns(T::Array[::String]) }
   def names; end
 
-  # source://rbi//lib/rbi/model.rb#1365
+  # source://rbi//lib/rbi/model.rb#1287
   sig { override.returns(::String) }
   def to_s; end
 end
 
 # Sorbet's T::Struct
 #
-# source://rbi//lib/rbi/model.rb#1206
+# source://rbi//lib/rbi/model.rb#1128
 class RBI::TStruct < ::RBI::Class
-  # source://rbi//lib/rbi/model.rb#1217
+  # source://rbi//lib/rbi/model.rb#1139
   sig do
     params(
       name: ::String,
@@ -2641,11 +2593,11 @@ class RBI::TStruct < ::RBI::Class
   def initialize(name, loc: T.unsafe(nil), comments: T.unsafe(nil), &block); end
 end
 
-# source://rbi//lib/rbi/model.rb#1255
+# source://rbi//lib/rbi/model.rb#1177
 class RBI::TStructConst < ::RBI::TStructField
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1268
+  # source://rbi//lib/rbi/model.rb#1190
   sig do
     params(
       name: ::String,
@@ -2662,7 +2614,7 @@ class RBI::TStructConst < ::RBI::TStructField
   sig { override.params(other: ::RBI::Node).returns(T::Boolean) }
   def compatible_with?(other); end
 
-  # source://rbi//lib/rbi/model.rb#1274
+  # source://rbi//lib/rbi/model.rb#1196
   sig { override.returns(T::Array[::String]) }
   def fully_qualified_names; end
 
@@ -2670,18 +2622,18 @@ class RBI::TStructConst < ::RBI::TStructField
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1280
+  # source://rbi//lib/rbi/model.rb#1202
   sig { override.returns(::String) }
   def to_s; end
 end
 
 # @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 #
-# source://rbi//lib/rbi/model.rb#1223
+# source://rbi//lib/rbi/model.rb#1145
 class RBI::TStructField < ::RBI::NodeWithComments
   abstract!
 
-  # source://rbi//lib/rbi/model.rb#1244
+  # source://rbi//lib/rbi/model.rb#1166
   sig do
     params(
       name: ::String,
@@ -2701,46 +2653,46 @@ class RBI::TStructField < ::RBI::NodeWithComments
   sig { override.params(other: ::RBI::Node).returns(T::Boolean) }
   def compatible_with?(other); end
 
-  # source://rbi//lib/rbi/model.rb#1233
+  # source://rbi//lib/rbi/model.rb#1155
   sig { returns(T.nilable(::String)) }
   def default; end
 
   # @return [String, nil]
   #
-  # source://rbi//lib/rbi/model.rb#1233
+  # source://rbi//lib/rbi/model.rb#1155
   def default=(_arg0); end
 
   # @abstract
   #
-  # source://rbi//lib/rbi/model.rb#1252
+  # source://rbi//lib/rbi/model.rb#1174
   sig { abstract.returns(T::Array[::String]) }
   def fully_qualified_names; end
 
-  # source://rbi//lib/rbi/model.rb#1230
+  # source://rbi//lib/rbi/model.rb#1152
   sig { returns(::String) }
   def name; end
 
   # @return [String]
   #
-  # source://rbi//lib/rbi/model.rb#1230
+  # source://rbi//lib/rbi/model.rb#1152
   def name=(_arg0); end
 
   # @return [String]
   #
-  # source://rbi//lib/rbi/model.rb#1230
+  # source://rbi//lib/rbi/model.rb#1152
   def type; end
 
   # @return [String]
   #
-  # source://rbi//lib/rbi/model.rb#1230
+  # source://rbi//lib/rbi/model.rb#1152
   def type=(_arg0); end
 end
 
-# source://rbi//lib/rbi/model.rb#1285
+# source://rbi//lib/rbi/model.rb#1207
 class RBI::TStructProp < ::RBI::TStructField
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1298
+  # source://rbi//lib/rbi/model.rb#1220
   sig do
     params(
       name: ::String,
@@ -2757,7 +2709,7 @@ class RBI::TStructProp < ::RBI::TStructField
   sig { override.params(other: ::RBI::Node).returns(T::Boolean) }
   def compatible_with?(other); end
 
-  # source://rbi//lib/rbi/model.rb#1304
+  # source://rbi//lib/rbi/model.rb#1226
   sig { override.returns(T::Array[::String]) }
   def fully_qualified_names; end
 
@@ -2765,7 +2717,7 @@ class RBI::TStructProp < ::RBI::TStructField
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1310
+  # source://rbi//lib/rbi/model.rb#1232
   sig { override.returns(::String) }
   def to_s; end
 end
@@ -2798,7 +2750,7 @@ class RBI::Tree < ::RBI::NodeWithComments
   sig { params(annotation: ::String, annotate_scopes: T::Boolean, annotate_properties: T::Boolean).void }
   def annotate!(annotation, annotate_scopes: T.unsafe(nil), annotate_properties: T.unsafe(nil)); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#38
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#38
   sig do
     params(
       name: ::String,
@@ -2808,19 +2760,19 @@ class RBI::Tree < ::RBI::NodeWithComments
   end
   def create_class(name, superclass_name: T.unsafe(nil), &block); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#45
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#45
   sig { params(name: ::String, value: ::String).void }
   def create_constant(name, value:); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#55
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#55
   sig { params(name: ::String).void }
   def create_extend(name); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#50
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#50
   sig { params(name: ::String).void }
   def create_include(name); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#89
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#89
   sig do
     params(
       name: ::String,
@@ -2833,36 +2785,19 @@ class RBI::Tree < ::RBI::NodeWithComments
   end
   def create_method(name, parameters: T.unsafe(nil), return_type: T.unsafe(nil), class_method: T.unsafe(nil), visibility: T.unsafe(nil), comments: T.unsafe(nil)); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#113
-  sig do
-    params(
-      name: ::String,
-      sigs: T::Array[::RBI::Sig],
-      parameters: T::Array[::RBI::Param],
-      class_method: T::Boolean,
-      visibility: ::RBI::Visibility,
-      comments: T::Array[::RBI::Comment]
-    ).void
-  end
-  def create_method_with_sigs(name, sigs:, parameters: T.unsafe(nil), class_method: T.unsafe(nil), visibility: T.unsafe(nil), comments: T.unsafe(nil)); end
-
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#60
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#60
   sig { params(name: ::String).void }
   def create_mixes_in_class_methods(name); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#25
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#25
   sig { params(name: ::String, block: T.nilable(T.proc.params(scope: ::RBI::Scope).void)).returns(::RBI::Scope) }
   def create_module(name, &block); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#9
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#9
   sig { params(constant: ::Module, block: T.nilable(T.proc.params(scope: ::RBI::Scope).void)).returns(::RBI::Scope) }
   def create_path(constant, &block); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#134
-  sig { params(parameters: T::Hash[T.any(::String, ::Symbol), ::String], return_type: ::String).returns(::RBI::Sig) }
-  def create_sig(parameters:, return_type: T.unsafe(nil)); end
-
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#74
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#74
   sig do
     params(
       name: ::String,
@@ -2928,20 +2863,20 @@ class RBI::Tree < ::RBI::NodeWithComments
 
   private
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#149
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#116
   sig { params(node: ::RBI::Node).returns(::RBI::Node) }
   def create_node(node); end
 
-  # source://tapioca/0.13.3/lib/tapioca/rbi_ext/model.rb#144
+  # source://tapioca/0.12.0/lib/tapioca/rbi_ext/model.rb#111
   sig { returns(T::Hash[::String, ::RBI::Node]) }
   def nodes_cache; end
 end
 
-# source://rbi//lib/rbi/model.rb#1398
+# source://rbi//lib/rbi/model.rb#1320
 class RBI::TypeMember < ::RBI::NodeWithComments
   include ::RBI::Indexable
 
-  # source://rbi//lib/rbi/model.rb#1413
+  # source://rbi//lib/rbi/model.rb#1335
   sig do
     params(
       name: ::String,
@@ -2957,7 +2892,7 @@ class RBI::TypeMember < ::RBI::NodeWithComments
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#1421
+  # source://rbi//lib/rbi/model.rb#1343
   sig { returns(::String) }
   def fully_qualified_name; end
 
@@ -2965,17 +2900,17 @@ class RBI::TypeMember < ::RBI::NodeWithComments
   sig { override.returns(T::Array[::String]) }
   def index_ids; end
 
-  # source://rbi//lib/rbi/model.rb#1402
+  # source://rbi//lib/rbi/model.rb#1324
   sig { returns(::String) }
   def name; end
 
-  # source://rbi//lib/rbi/model.rb#1428
+  # source://rbi//lib/rbi/model.rb#1350
   sig { override.returns(::String) }
   def to_s; end
 
   # @return [String]
   #
-  # source://rbi//lib/rbi/model.rb#1402
+  # source://rbi//lib/rbi/model.rb#1324
   def value; end
 end
 
@@ -3001,15 +2936,15 @@ RBI::VERSION = T.let(T.unsafe(nil), String)
 #
 # @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 #
-# source://rbi//lib/rbi/model.rb#914
+# source://rbi//lib/rbi/model.rb#841
 class RBI::Visibility < ::RBI::NodeWithComments
   abstract!
 
-  # source://rbi//lib/rbi/model.rb#924
+  # source://rbi//lib/rbi/model.rb#851
   sig { params(visibility: ::Symbol, loc: T.nilable(::RBI::Loc), comments: T::Array[::RBI::Comment]).void }
   def initialize(visibility, loc: T.unsafe(nil), comments: T.unsafe(nil)); end
 
-  # source://rbi//lib/rbi/model.rb#930
+  # source://rbi//lib/rbi/model.rb#857
   sig { params(other: ::RBI::Visibility).returns(T::Boolean) }
   def ==(other); end
 
@@ -3017,19 +2952,19 @@ class RBI::Visibility < ::RBI::NodeWithComments
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
 
-  # source://rbi//lib/rbi/model.rb#945
+  # source://rbi//lib/rbi/model.rb#872
   sig { returns(T::Boolean) }
   def private?; end
 
-  # source://rbi//lib/rbi/model.rb#940
+  # source://rbi//lib/rbi/model.rb#867
   sig { returns(T::Boolean) }
   def protected?; end
 
-  # source://rbi//lib/rbi/model.rb#935
+  # source://rbi//lib/rbi/model.rb#862
   sig { returns(T::Boolean) }
   def public?; end
 
-  # source://rbi//lib/rbi/model.rb#921
+  # source://rbi//lib/rbi/model.rb#848
   sig { returns(::Symbol) }
   def visibility; end
 end

@@ -1,3 +1,5 @@
+# typed: false
+
 require "bleuprint/field/base"
 
 module Bleuprint
@@ -23,10 +25,6 @@ module Bleuprint
         resource_class.reflect_on_association(attr)
       end
 
-      # def display_associated_resource
-      #   associated_dashboard.display_resource(data)
-      # end
-
       def associated_class
         if option_given?(:class_name)
           associated_class_name.constantize
@@ -42,15 +40,7 @@ module Bleuprint
         )
       end
 
-      # def html_controller
-      #   "select"
-      # end
-
       private
-
-      # def associated_dashboard
-      #   "#{associated_class_name}Dashboard".constantize.new
-      # end
 
       def primary_key
         # # Deprecated, renamed `association_primary_key`
@@ -69,11 +59,6 @@ module Bleuprint
       def option_given?(name)
         options.key?(name)
       end
-
-      # def deprecated_option(name)
-      #   Administrate.warn_of_deprecated_option(name)
-      #   options.fetch(name)
-      # end
     end
   end
 end
