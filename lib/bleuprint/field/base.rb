@@ -48,11 +48,9 @@ module Bleuprint
       end
 
       def value
-        value = options[:value].call(self, resource) if options[:value].is_a?(Proc)
+        return options[:value].call(self, resource) if options[:value].is_a?(Proc)
 
-        value ||= resource.send(attribute) if resource.respond_to?(attribute)
-
-        value
+        resource.send(attribute) if resource.respond_to?(attribute)
       end
 
       def label
