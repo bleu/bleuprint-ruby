@@ -9,5 +9,6 @@ module Bleuprint
     autoload :Base
     autoload :ValidatorsToJson
     autoload :Wizard
+    autoload :Action
   end
 end

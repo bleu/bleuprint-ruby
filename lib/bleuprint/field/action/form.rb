@@ -1,6 +1,7 @@
 # typed: true
 
 require "bleuprint/field/base"
+require "bleuprint/forms/action"
 
 module Bleuprint
   module Field
@@ -19,7 +20,8 @@ module Bleuprint
             trigger_confirmation: options[:trigger_confirmation],
             condition_key: options[:condition_key],
             condition_value: options[:condition_value],
-            url_path: value
+            url_path: value,
+            form: options[:form_fields].present? ? ::Bleuprint::Forms::Action.new(resource, dashboard, options[:form_fields]).call! : {}
           }
         end
       end
