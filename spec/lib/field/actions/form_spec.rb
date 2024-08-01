@@ -1,5 +1,6 @@
 # typed: false
 
+# rubocop:disable RSpec/AnyInstance
 RSpec.describe Bleuprint::Field::Action::Form, type: :model do
   let(:dashboard) { double("Dashboard") }
   let(:resource) { double("Resource") }
@@ -26,14 +27,14 @@ RSpec.describe Bleuprint::Field::Action::Form, type: :model do
     end
   end
 
+  # rubocop:disable RSpec/ExampleLength
   describe "#as_json" do
     before do
-      allow(field).to receive(:label).and_return("Submit")
-      allow(field).to receive(:value).and_return("/submit")
+      allow(field).to receive_messages(label: "Submit", value: "/submit")
       allow_any_instance_of(Bleuprint::Forms::Action).to receive(:call!).and_return({ some: "form_fields" })
     end
 
-    it "returns a hash representation of the form field" do
+    it "returns a representation of the form field" do
       expected_json = {
         name: "Submit",
         type: :form,
@@ -47,6 +48,7 @@ RSpec.describe Bleuprint::Field::Action::Form, type: :model do
       expect(field.as_json).to eq(expected_json)
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe "#action_type" do
     it "returns the action type without 'action_' prefix" do
@@ -80,7 +82,7 @@ RSpec.describe Bleuprint::Field::Action::Form, type: :model do
 
   describe "#value" do
     context "when value is a proc" do
-      let(:options) { { value: proc { |field, _resource| "dynamic_value" } } }
+      let(:options) { { value: proc { |_field, _resource| "dynamic_value" } } }
 
       it "evaluates the proc" do
         expect(field.value).to eq("dynamic_value")
@@ -105,3 +107,4 @@ RSpec.describe Bleuprint::Field::Action::Form, type: :model do
     end
   end
 end
+# rubocop:enable RSpec/AnyInstance
