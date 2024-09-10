@@ -39,10 +39,10 @@ module Bleuprint
         column_attributes = self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).map do |field_name, field_class|
           field_class.new(field_name, self.class, resource_class.new).as_json
         end
-        
+
         actions = actions_json(resource: nil)
         if actions.any?
-          column_attributes + [{ id: "actions", type: "actions", accessorKey: "actions", actions: actions }]
+          column_attributes + [{ id: "actions", type: "actions", accessorKey: "actions", actions: }]
         else
           column_attributes
         end
