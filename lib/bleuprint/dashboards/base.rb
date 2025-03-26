@@ -89,7 +89,11 @@ module Bleuprint
             raise "Deferred class #{action.deferred_class.name} not found."
           end
 
-          action.new(key, self.class, resource, { context: }).as_json
+          serialized_action = action.new(key, self.class, resource, { context: }).as_json
+
+          next if serialized_action[:hide]
+
+          serialized_action
         end.compact
       end
 
