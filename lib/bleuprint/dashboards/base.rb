@@ -190,8 +190,8 @@ module Bleuprint
       end
 
       class << self
-        def call!
-          new.call!
+        def call!(**extra)
+          new(**extra).call!
         end
 
         def apply_filters_and_sorting(scope, filters, sorting, pagination, **extra)
