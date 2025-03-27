@@ -21,7 +21,8 @@ module Bleuprint
             condition_key: options[:condition_key],
             condition_value: options[:condition_value],
             url_path: value,
-            form: form_fields_json
+            form: form_fields_json,
+            hide: hidden?
           }
         end
 

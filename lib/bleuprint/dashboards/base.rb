@@ -7,7 +7,7 @@ require "active_support/core_ext"
 
 module Bleuprint
   module Dashboards
-    DashboardContext = Struct.new(:pagination, :sorting, :filters, keyword_init: true)
+    DashboardContext = Struct.new(:pagination, :sorting, :filters, :extra, keyword_init: true)
 
     class Base < Bleuprint::Services::Base
       COLUMN_TYPE_MAPPING = {
@@ -20,10 +20,10 @@ module Bleuprint
 
       attr_reader :context
 
-      def initialize(pagination={}, sorting={}, filters={})
+      def initialize(pagination={}, sorting={}, filters={}, **extra)
         super()
         validate_inheritance
-        @context = DashboardContext.new(pagination:, sorting:, filters:)
+        @context = DashboardContext.new(pagination:, sorting:, filters:, extra:)
         validate_required_constants
       end
 
@@ -89,7 +89,11 @@ module Bleuprint
             raise "Deferred class #{action.deferred_class.name} not found."
           end
 
-          action.new(key, self.class, resource, { context: }).as_json
+          serialized_action = action.new(key, self.class, resource, { context: }).as_json
+
+          next if serialized_action[:hide]
+
+          serialized_action
         end.compact
       end
 
@@ -111,7 +115,7 @@ module Bleuprint
         return {} if self.class::ATTRIBUTE_TYPES.blank?
 
         self.class::ATTRIBUTE_TYPES.slice(*self.class::SHOW_PAGE_ATTRIBUTES).map do |field_name, field_class|
-          field_class.new(field_name, self, resource).as_json
+          field_class.new(field_name, self, resource, { context: }).as_json
         end
       end
 
@@ -124,7 +128,7 @@ module Bleuprint
 
         scope.map do |resource|
           serialized_resource = self.class::ATTRIBUTE_TYPES.slice(*self.class::COLLECTION_ATTRIBUTES).to_h do |field_name, field_class|
-            field = field_class.new(field_name, self.class, resource)
+            field = field_class.new(field_name, self.class, resource, { context: })
             [field.name.to_sym, field.value]
           end
 
@@ -190,18 +194,18 @@ module Bleuprint
           new.call!
         end
 
-        def apply_filters_and_sorting(scope, filters, sorting, pagination)
-          new(pagination, sorting, filters).apply_filters_and_sorting(
+        def apply_filters_and_sorting(scope, filters, sorting, pagination, **extra)
+          new(pagination, sorting, filters, **extra).apply_filters_and_sorting(
             scope
           )
         end
 
-        def apply_field_serialization(scope)
-          new.apply_field_serialization(scope)
+        def apply_field_serialization(scope, **extra)
+          new(**extra).apply_field_serialization(scope)
         end
 
-        def show_page_attributes(resource)
-          new.show_page_attributes(resource)
+        def show_page_attributes(resource, **extra)
+          new(**extra).show_page_attributes(resource)
         end
 
         def resource_class
